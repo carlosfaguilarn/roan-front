@@ -1,0 +1,15 @@
+.background-blanco{
+    background-color: white;
+}
+.float-right{
+    float: right;
+}
+.active{
+  box-shadow: inset 0px 0px 500px rgba(0, 0, 0, 0.1);
+  opacity: 1;
+}
+.navbar-brand img{
+    border-radius: 100%;
+    margin-top: -7px; 
+    margin-right: 10px; 
+} 

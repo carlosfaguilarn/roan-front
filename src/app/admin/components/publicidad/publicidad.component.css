@@ -1,0 +1,28 @@
+.animal-image-mask, .keeper-image-mask{
+    width: 100%;
+    height: 200px;
+    padding: 20px;
+    padding-bottom: 0px;
+    overflow: hidden;
+}
+.animal-image-mask img,
+.keeper-image-mask img{
+   width: 100%;
+   height: 200px;
+}
+
+.thumbnail-add{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.caja{
+    height: 350px;
+}
+.thumbnail-add:hover{
+    cursor: pointer;
+}
+
+.link-anuncio{
+    text-decoration: none;
+}

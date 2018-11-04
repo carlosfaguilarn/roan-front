@@ -1,0 +1,12 @@
+.modal-body{
+    text-align: start !important;
+} 
+
+.boton-abajo{ 
+    z-index: 9999999;
+    bottom: 0; 
+    right: 0; 
+    margin-right: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+  } 

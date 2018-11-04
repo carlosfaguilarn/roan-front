@@ -1,0 +1,164 @@
+<div >
+  <h2>Administración de usuarios y roles</h2>    
+  
+  <div class="row" style="padding-left: 20px;">
+    <div class="col-lg-6">
+        <h4><strong>Asignar rol a usuario</strong></h4>
+          <form class="form-horizontal" #formAdd = "ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="email">Usuario:</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="id_usuario" id="id_usuario" [(ngModel)]="id_usuario">
+                  <option *ngFor="let usuario of usuarios; let i = index" [value]="usuario.id">
+                    {{usuario.name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="pwd">Rol:</label>
+              <div class="col-sm-10"> 
+                  <select class="form-control" name="id_rol" id="id_rol"  [(ngModel)]="id_rol">
+                      <option *ngFor="let rol of roles" [value]="rol.id">
+                        {{rol.name}}
+                      </option>
+                  </select>
+              </div>
+            </div>
+            <div class="form-group"> 
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">ASIGNAR</button>
+              </div>
+            </div>
+          </form>
+    </div>
+    <div class="col-lg-6">
+      <h4><strong>Asignar permiso a un rol</strong></h4> 
+      <form class="form-horizontal" #formPermisos = "ngForm" (ngSubmit)="onSubmitPermisos()">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Rol:</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="id_rol" id="id_rol" [(ngModel)]="id_rol_permiso">
+                <option *ngFor="let rol of roles" [value]="rol.id">
+                  {{rol.name}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="pwd">Permiso:</label>
+            <div class="col-sm-10"> 
+                <select class="form-control" name="id_permiso" id="id_permiso"  [(ngModel)]="id_permiso">
+                    <option *ngFor="let permiso of permisos" [value]="permiso.id">
+                      {{permiso.name}}
+                    </option>
+                </select>
+            </div>
+          </div>
+          <div class="form-group"> 
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-primary">ASIGNAR</button>
+            </div>
+          </div>
+        </form>
+
+    </div>
+  </div>
+
+  
+
+  <hr>
+  <h4><strong>Lista de usuarios</strong></h4>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Código identificador</th>
+        <th>Rol</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let usuario of usuarios">
+      <tr>
+        <td>{{usuario.id}}</td>
+        <td>{{usuario.role}}</td>
+        <td>{{usuario.name}}</td>
+        <td>{{usuario.email}}</td>
+        <td>
+          <a href="#usuario-{{usuario.id}}" data-toggle="modal" role="button" class="btn btn-light"><i class="far fa-edit"></i></a>
+          <button class="btn btn-danger little-margin-left"><i class="fas fa-user-times"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+  <div class="row">
+    <h4><strong>DETALLES</strong></h4>
+
+    <div class="col-lg-6">
+      <h4><strong>Roles de usuario</strong></h4>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Rol:</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="id_rol_detalle" id="id_rol_detalle" [(ngModel)]="id_rol_detalle">
+                <option *ngFor="let rol of roles; let i = index" [value]="rol.id">
+                  {{rol.name}}
+                </option>
+              </select>
+            </div>
+        </div>
+        <div class="form-group"> 
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary" (click)="verPermisos()">Ver permisos</button>
+          </div>
+        </div>
+      </form>
+  </div>
+  <div class="col-lg-6">
+    <h4><strong>Descripción de permisos</strong></h4> 
+    <form class="form-horizontal">
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="pwd">Permiso:</label>
+          <div class="col-sm-10"> 
+              <select class="form-control">
+                  <option *ngFor="let permiso of permisos" [value]="permiso.id">
+                    {{permiso.name}}
+                  </option>
+              </select>
+          </div>
+        </div>
+        <div class="form-group"> 
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">Ver descripción</button>
+          </div>
+        </div>
+      </form>
+  </div>
+  </div>
+
+  <!-- Modal para mostrar permisos de un rol-->
+  <div class="modal fade" id="detalleRol" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Permisos</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ol>
+            <li *ngFor="let permiso of permisos_detalle">
+              Permiso: {{permiso}}
+            </li>
+          </ol>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

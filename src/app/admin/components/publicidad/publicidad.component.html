@@ -1,0 +1,87 @@
+<h1>{{title}}</h1>	
+	<div class="col-lg-4 col-md-4" *ngFor="let anuncio of anuncios">
+    <a class="link-anuncio" href="#editarAnuncio-{{anuncio.id}}" role="button" data-toggle="modal">
+      <div class="thumbnail caja">
+        <div class="animal-image-mask">
+          <img [src]="anuncio.img" alt="{{anuncio.descripcion}}" *ngIf="anuncio.img">
+          <!--<img [src]="https://via.placeholder.com/270x200" alt="{{anuncio.descripcion}}" *ngIf="!anuncio.img">-->
+        </div>
+        <div class="caption">
+          <h3>{{anuncio.descripcion}}</h3>				
+        </div>
+      </div>
+    </a>
+
+    <!-- Modal para editar un anuncio -->
+ <div class="modal fade" id="editarAnuncio-{{anuncio.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edita este anuncio</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="descripcion">{{anuncio.descripcion}}:</label>
+            <input type="text" class="form-control" name="descripcion" id="descripcion" required>
+          </div>
+          <div class="form-group">
+            <label for="imagen">Imagen:</label>
+            <div class="text-center"> 
+                <img class="img-modal-max" [src]="anuncio.img" alt="No disponible">
+                <br><br>
+                <input type="file" class="form-control" name="imagen" id="imagen">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  </div>
+  
+  <!-- *****************      Thumbnail para agregar un nuevo anuncio     ********************************* -->
+  <div class="col-lg-4 col-md-4">
+      <div class="thumbnail caja">
+        <a href="#agregarAnuncio" role="button" data-toggle="modal">
+            <img class="thumbnail-add" src="assets/img/mas.png" alt="Agrega un nuevo anuncio">
+        </a>
+      </div>
+    </div>
+
+ <!-- Modal para agregar un nuevo anuncio -->
+ <div class="modal fade" id="agregarAnuncio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agrega un nuevo anuncio</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="descripcion">Descripción:</label>
+            <input type="text" class="form-control" name="descripcion" id="descripcion" required>
+          </div>
+          <div class="form-group">
+            <label for="imagen">Imagen:</label><br>
+            <span class="text-center">
+                <input type="file" class="form-control" name="imagen" id="imagen">
+            </span> 
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

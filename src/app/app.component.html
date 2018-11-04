@@ -1,20 +1,86 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Lumino - Dashboard</title>
+	<!--Custom Font-->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.js"></script>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	
+	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse"><span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
 
+				<a class="navbar-brand" href="#"><span><img src="../assets/img/logo-roan.png" alt=""> Roán</span></a>
+
+				<ul class="nav navbar-top-links navbar-right">
+					<li class="dropdown">
+						<a class="perfil" data-toggle="dropdown" href="#">
+							<!--<img src="../assets/img/perfil-rosario.png" class="img-responsive profile-userpic" alt="">-->
+							<i class="fas fa-user-circle font-20"></i>
+						</a>
+					 
+						<ul class="dropdown-menu">
+							<li *ngIf="identity && identity.name"><a href="#">
+									<div>
+										<em class="fa fa-circle online-point"></em> {{identity.name}}
+									</div>
+								</a>
+							</li> 
+							<li><a routerLink = "/admin/admin-usuarios">
+									<div>
+										<em class="fa fa-list-ul"></em> Administracion de usuarios
+									</div>
+								</a>
+							</li>
+							<li><a class="pointer" (click) = "logout()">
+									<div>
+										<em class="fas fa-sign-out-alt"></em> Cerrar sesión
+									</div>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+
+			</div>
+		</div><!-- /.container-fluid -->
+	</nav>
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<ul class="nav menu" *ngIf="!identity">
+			<li><a routerLink="/" [routerLinkActive]="['active']"><i class="fas fa-briefcase"></i> Nuestros servicios</a></li>
+			<li><a routerLink="/cotizaciones"  [routerLinkActive]="['active']"><i class="fa fa-calendar">  </i> Presupuestos</a></li>
+			<li><a routerLink="/contacto" [routerLinkActive]="['active']"><i class="far fa-chart-bar"></i> Contáctanos</a></li>
+		</ul>
+		
+		<ul class="nav menu" *ngIf="identity">
+			<li><a routerLink="/admin/servicios" [routerLinkActive]="['active']"><i class="fas fa-briefcase"></i> Servicios</a></li>
+			<li><a routerLink="/admin/usuarios"  [routerLinkActive]="['active']"><i class="fa fa-calendar">  </i> Usuarios</a></li>
+			<li><a routerLink="/admin/proyectos" [routerLinkActive]="['active']"><i class="far fa-chart-bar"></i> Proyectos</a></li>
+			<li><a routerLink="/admin/presupuestos" [routerLinkActive]="['active']"><i class="fa fa-list-ul">   </i> Presupuestos</a></li>
+			<li><a routerLink="/admin/publicidad" [routerLinkActive]="['active']"><i class="fa fa-ad">        </i> Publicidad</a></li>
+			<li><a routerLink="/admin/clientes" [routerLinkActive]="['active']"><i class="fa fa-user-tie">  </i> Clientes</a></li>
+		</ul>
+	</div><!--/.sidebar-->
+	<i class="fas fa-user-tie"></i>
+
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row text-center">
+			<div class="col-lg-12">
+				<router-outlet></router-outlet>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
