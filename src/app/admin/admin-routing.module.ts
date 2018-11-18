@@ -7,9 +7,11 @@ import { ServiciosComponent } from "./components/servicios/servicios.component";
 import { UsuariosComponent } from "./components/usuarios/usuarios.component";
 import { PresupuestosComponent } from "./components/presupuestos/presupuestos.component";
 import { ProyectosComponent } from "./components/proyectos/proyectos.component";
+import { GestionComponent } from "./components/gestion/gestion.component";
 import { ClientesComponent } from "./components/clientes/clientes.component";
 import { PublicidadComponent } from "./components/publicidad/publicidad.component";
 import { AdminUsuariosComponent } from "./components/admin-usuarios/admin-usuarios.component";
+import { VerPresupuestosComponent } from "./components/ver-presupuestos/ver-presupuestos.component";
 
 
 //Guard
@@ -26,11 +28,12 @@ const adminRoutes: Routes = [
 			{path: 'servicios', component: ServiciosComponent},
 			{path: 'usuarios', component: UsuariosComponent},
 			{path: 'presupuestos', component: PresupuestosComponent},
-            {path: 'proyectos', component: ProyectosComponent},
+			{path: 'proyectos', component: ProyectosComponent},
+			{path: 'gestionar/:id', component: GestionComponent},
             {path: 'clientes', component: ClientesComponent},
 			{path: 'publicidad', component: PublicidadComponent},
 			{path: 'admin-usuarios', component: AdminUsuariosComponent},
-			
+			{path: 'ver-presupuestos', component: VerPresupuestosComponent},
             {path: '**', component: ServiciosComponent}
 		]
 	}

@@ -15,13 +15,9 @@ export class AdminGuard implements CanActivate{
 
         console.log("Mi identidad", identity);
         
-        if(identity.role == 'ADMINISTRADOR' || identity.role == 'STANDARD'){
-            console.log("Puedes continuar como administrador");
+        if(identity.role == 'ADMINISTRADOR' || identity.role == 'STANDARD' ){
+            console.log("Puedes continuar usando el sistema");
             return true;
-        }else if(identity.role == 'INVITADO'){
-            console.log("No tienes suficientes permisos para estar aquí");
-            this._router.navigate(['/adminlog']);
-            return false;
         }else{
             console.log("Debes loggearte para continuar");
             this._router.navigate(['/adminlog']);

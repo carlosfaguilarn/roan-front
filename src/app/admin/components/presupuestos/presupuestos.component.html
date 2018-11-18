@@ -1,26 +1,25 @@
 <h1>{{title}}</h1>
-<!--
-<div class="form-group text-right sinpadding">
-  <div class="col-sm-8">
-      <label for="">Proyecto</label>
-  </div>
-  
-  <div class="col-sm-2">
-      <select name="proyecto" id="proyecto" class="form-control">
-        <option value="seleccionar">Selecciona un proyecto</option>
-        <option [value]="proyecto.id" *ngFor="let proyecto of proyectos">
-          {{proyecto.titulo}}
-        </option>
-      </select> 
+
+<div class="row text-end sinpadding little-margin-right">
+  <div class="col-lg-8"></div>
+  <div class="col-lg-4">
+    <select [(ngModel)]="proyecto_id" class="form-control" (change)="modalDescripcion()">
+      <option value="10000">
+          Seleccionar proyecto
+      </option>
+      <option [value]="i" *ngFor="let proyecto of proyectos; let i = index">
+        {{proyecto.titulo}}
+      </option>
+    </select>  
+    
   </div> 
-
-  <div class="col-sm-2 text-left">
-    <button class="btn btn-primary add"><i class="fas fa-plus"></i></button>
-  </div>
 </div>
--->
-<div class="big-margin-top"></div>
-
+<div class="little-margin-top"></div>
+<div class="row text-right sinpadding little-margin-right"> 
+  <a href="#llenarDatos" data-toggle="modal" role="button" class="btn btn-default">
+    Sin especificar
+  </a>
+</div>
 
 <!-- Editable table material -->
 <div class="card">
@@ -28,7 +27,7 @@
       <div id="content" #content>
         <div id="table_material" class="table-editable">
           <h3><strong>Material</strong></h3>
-          <table class="table table-bordered table-responsive-md table-striped text-center">
+          <table id="tabla_materiales" class="table table-bordered table-responsive-md table-striped text-center">
             <tr>
               <th class="text-center">Cantidad</th>
               <th class="text-center">Descripción</th>
@@ -36,49 +35,25 @@
               <th class="text-center">Subtotal</th> 
               <th class="text-center">Borrar fila</th>
             </tr> 
-                      <!-- Primera fila de la tabla-->
+            <!-- Primera fila de la tabla-->
             <tr>
-              <td class="pt-3-half" contenteditable="true"></td>
-              <td class="pt-3-half" contenteditable="true"></td>
-              <td class="pt-3-half costo" contenteditable="true"></td>
-              <td class="pt-3-half" contenteditable="true"></td> 
+              <td class="pt-3-half dato" contenteditable="true"></td>
+              <td class="pt-3-half dato" contenteditable="true"></td>
+              <td class="pt-3-half dato costo" contenteditable="true"></td>
+              <td class="pt-3-half dato" contenteditable="true"></td> 
               <td>
                 <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
                   <i class="fas fa-trash"></i>
                 </button></span>
               </td>
             </tr> 
-                        <!-- Segunda fila de la tabla-->
-            <tr>
-              <td class="pt-3-half" contenteditable="true"></td>
-              <td class="pt-3-half" contenteditable="true"></td>
-              <td class="pt-3-half costo" contenteditable="true"></td>
-              <td class="pt-3-half" contenteditable="true"></td> 
-              <td>
-                <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
-                  <i class="fas fa-trash"></i>
-                </button></span>
-              </td>
-            </tr> 
-                         <!-- Tercer fila de la tabla-->
-            <tr>
-              <td class="pt-3-half" contenteditable="true"></td>
-              <td class="pt-3-half" contenteditable="true"></td>
-              <td class="pt-3-half costo" contenteditable="true"></td>
-              <td class="pt-3-half" contenteditable="true"></td> 
-              <td>
-                <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
-                  <i class="fas fa-trash"></i>
-                </button></span>
-              </td>
-            </tr> 
-            
+                        
             <!-- This is our clonable table line -->
             <tr class="hide">
-              <td class="pt-3-half" contenteditable="true"></td>
-              <td class="pt-3-half" contenteditable="true"></td>
-              <td class="pt-3-half costo" contenteditable="true"></td>
-              <td class="pt-3-half" contenteditable="true"></td> 
+              <td class="pt-3-half dato" contenteditable="true"></td>
+              <td class="pt-3-half dato" contenteditable="true"></td>
+              <td class="pt-3-half dato costo" contenteditable="true"></td>
+              <td class="pt-3-half dato" contenteditable="true"></td> 
               <td>
                   <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
                     <i class="fas fa-trash"></i>
@@ -88,53 +63,51 @@
           </table>
           <div class="row  text-right little-margin-right">
               <span class="table-add add-row">
-                  <a class="btn btn-primary add" id="add-row">
-                    <i class="fa fa-plus"></i>
-                    
-                  </a>
-                </span>
+                  <a class="btn btn-primary add" id="add-row"><i class="fa fa-plus"></i></a>
+              </span>
           </div>
           </div>
         </div>
       </div>
     </div>
-    
-    
-    <!-- Editable table -->
+<!-- Editable table -->
 
-
-    <!-- Editable table mano de obra -->
+<!-- Editable table mano de obra -->
 <div class="card">
     <div class="card-body"> 
         <div id="table_mano" class="table-editable">
           <h3><strong>Mano de obra</strong></h3>
           <table class="table table-bordered table-responsive-md table-striped text-center">
-            <tr>
-              <th class="text-center">Descripción del concepto</th>
-              <th class="text-center">Costo</th>
-              <th class="text-center">Subtotal</th> 
-              <th class="text-center">Borrar fila</th>
-            </tr>
-            <tr *ngFor="let number of [0,1,2]">
-              <td class="pt-3-half" contenteditable="true"></td>
-              <td class="pt-3-half" contenteditable="true"></td> 
-              <td class="pt-3-half" contenteditable="true"></td> 
-              <td>
-                <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
-                  <i class="fas fa-trash"></i>
-                </button></span>
-              </td>
-            </tr>
+              <tr>
+                <th class="text-center">Cantidad</th>
+                <th class="text-center">Descripción</th>
+                <th class="text-center">Costo unitario</th>
+                <th class="text-center">Subtotal</th> 
+                <th class="text-center">Borrar fila</th>
+              </tr> 
+              <!-- Primera fila de la tabla-->
+              <tr>
+                <td class="pt-3-half dato" contenteditable="true"></td>
+                <td class="pt-3-half dato" contenteditable="true"></td>
+                <td class="pt-3-half dato costo" contenteditable="true"></td>
+                <td class="pt-3-half dato" contenteditable="true"></td> 
+                <td>
+                  <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
+                    <i class="fas fa-trash"></i>
+                  </button></span>
+                </td>
+              </tr> 
             
             <!-- This is our clonable table line -->
             <tr class="hide">
-              <td class="pt-3-half" contenteditable="true"></td>
-              <td class="pt-3-half" contenteditable="true"></td>
-              <td class="pt-3-half" contenteditable="true"></td> 
+              <td class="pt-3-half dato" contenteditable="true"></td>
+              <td class="pt-3-half dato" contenteditable="true"></td>
+              <td class="pt-3-half dato costo" contenteditable="true"></td> 
+              <td class="pt-3-half dato" contenteditable="true"></td> 
               <td>
                   <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
-                      <i class="fas fa-trash"></i>
-                    </button></span>
+                      <i class="fas fa-trash"></i></button>
+                  </span>
               </td>
             </tr>
           </table> 
@@ -145,14 +118,546 @@
         <span class="table-add add-row2">
             <a class="btn btn-primary add" id="add-row2">
               <i class="fa fa-plus"></i>
-               
             </a>
-          </span>
-    </div>
-    
-    <!-- Editable table -->
-
+        </span>
+    </div> 
+  <!-- Editable table --> 
   <br>
-  <button class="btn btn-primary" (click)="generarPDF()">Generar PDF</button>
+  <a href="#nuevoConcepto" (click)="abrirModalPresupuesto()" data-toggle="modal" role="button" class="btn btn-primary">
+    Generar presupuesto
+  </a> 
 
-  
+<!--agregar descripción del presupuesto *************************************-->
+<div class="modal fade" id="llenarDescripcion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form #descForm="ngForm" (ngSubmit)="llenarDescripcion()">
+          <div class="modal-header">
+            <h5 class="modal-title">Agrega descripción del presupuesto</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="cliente">Descripción del proyecto:</label>
+              <input type="text" class="form-control text-center" name="cliente" id="cliente" [(ngModel)]="presupuesto.descripcion" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary"  data-dismiss="modal">Aceptars</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+<!--Modal para agregar datos del presupuesto sin especificar proyecto *************************************-->
+<div class="modal fade" id="llenarDatos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form #dataForm="ngForm" (ngSubmit)="llenarPresupuesto()">
+        <div class="modal-header">
+          <h5 class="modal-title">Agrega datos del presupuesto</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="cliente">Descripción del proyecto:</label>
+            <input type="text" class="form-control text-center" name="cliente" id="cliente" [(ngModel)]="presupuesto.descripcion" required>
+          </div>
+          <div class="form-group">
+            <label for="cliente">Nombre del cliente:</label>
+            <input type="text" class="form-control text-center" name="cliente" id="cliente" [(ngModel)]="presupuesto.cliente" required>
+          </div>
+          <div class="form-group">
+            <label for="cliente">Ubicación:</label>
+            <input type="text" class="form-control text-center" name="cliente" id="cliente" [(ngModel)]="presupuesto.ubicacion" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary"  data-dismiss="modal">Aceptar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--Modal para generar presupuesto ************************************************************************-->
+<div class="modal modal2 fade" id="nuevoConcepto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog2" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Vista previa</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- ************************************************************ CONTENIDO DEL INFORME ************************************************ -->
+            <div id="contentToConvert" styles="width: 3000px;" > 
+              <head>
+                <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+                <!-- <link rel="stylesheet" href="sass/main.css" media="screen" charset="utf-8"/> -->
+                <meta content="width=device-width, initial-scale=1.0" name="viewport">
+                <meta http-equiv="content-type" content="text-html; charset=utf-8">
+                <style type="text/css">
+                  video {
+                    margin: 0;
+                    padding: 0;
+                    border: 0;
+                    font: inherit;
+                    font-size: 100%;
+                    vertical-align: baseline;
+                  } 
+                  .medio{
+                    width: 1500px;
+                  }
+                  .modal2 .modal-dialog2{
+                    width: auto;
+                  }
+                  html {
+                    line-height: 1;
+                    font-size: 15px;
+                  } 
+                  ol, ul {
+                    list-style: none;
+                  } 
+                  table {
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                  } 
+                  caption, th, td {
+                    text-align: left;
+                    font-weight: normal;
+                    vertical-align: middle;
+                  } 
+                  q, blockquote {
+                    quotes: none;
+                  }
+                  q:before, q:after, blockquote:before, blockquote:after {
+                    content: "";
+                    content: none;
+                  } 
+                  a img {
+                    border: none;
+                  } 
+                  article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+                    display: block;
+                  } 
+                  body {
+                    font-family: 'Source Sans Pro', sans-serif;
+                    font-weight: 300;
+                    font-size: 15px;
+                    margin: 0;
+                    padding: 0;
+                  }
+                  body a {
+                    text-decoration: none;
+                    color: inherit;
+                  }
+                  body a:hover {
+                    color: inherit;
+                    opacity: 0.7;
+                  }
+                  body .container {
+                    min-width: 500px;
+                    margin: 0 auto;
+                    padding: 0 20px;
+                  }
+                  body .clearfix:after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                  }
+                  body .left {
+                    float: left;
+                  }
+                  body .right {
+                    float: right;
+                  }
+                  body .helper {
+                    display: inline-block;
+                    height: 100%;
+                    vertical-align: middle;
+                  }
+                  body .no-break {
+                    page-break-inside: avoid;
+                  }
+                  .vertical-align{
+                      display: flex;
+                      justify-content: center;
+                      align-content: center;
+                      flex-direction: column;
+                  }
+              
+                  header {
+                    margin-top: 20px;
+                    margin-bottom: 50px;
+                  }
+                  header figure {
+                    float: left;
+                    width: auto;
+                    height: auto;
+                    margin-right: 10px;
+                    border-radius: 100%;
+                    text-align: center;
+                  }
+                  header figure img {
+                    margin-top: 13px;
+                  }
+                  header .company-address {
+                    float: left;
+                    max-width: 450px;
+                    line-height: 1.7em;
+                  }
+                  header .title {
+                    color: #8BC34A;
+                    font-weight: 500;
+                    font-size: 50px;
+                    text-transform: uppercase;
+                  }
+                  header .company-contact {
+                    float: right;
+                    height: 60px;
+                    padding: 0 10px;
+                    background-color: #8BC34A;
+                    color: white;
+                  }
+                  header .company-contact span {
+                    display: inline-block;
+                    vertical-align: middle;
+                  }
+                  header .company-contact .circle {
+                    width: 20px;
+                    height: 20px;
+                    background-color: white;
+                    border-radius: 50%;
+                    text-align: center;
+                  }
+                  header .company-contact .circle img {
+                    vertical-align: middle;
+                  }
+                  header .company-contact .phone {
+                    height: 100%;
+                    margin-right: 20px;
+                  }
+                  header .company-contact .email {
+                    height: 100%;
+                    min-width: 100px;
+                    text-align: right;
+                  }
+              
+                  section .details {
+                    margin-bottom: 55px;
+                  }
+                  section .details .client {
+                    width: 50%;
+                    line-height: 20px;
+                  }
+                  section .details .client .name {
+                    color: #8BC34A;
+                  }
+                  section .details .data {
+                    width: 50%;
+                    text-align: right;
+                  }
+                  section .details .title {
+                    margin-bottom: 15px;
+                    color: #8BC34A;
+                    font-size: 3em;
+                    font-weight: 400;
+                    text-transform: uppercase;
+                  }
+                  section table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                    font-size: 0.9166em;
+                  }
+                  section table .qty, section table .unit, section table .total {
+                    width: 15%;
+                  }
+                  section table .desc {
+                    width: 55%;
+                  }
+                  section table thead {
+                    display: table-header-group;
+                    vertical-align: middle;
+                    border-color: inherit;
+                  }
+                  section table thead th {
+                    padding: 5px 10px;
+                    background: #8BC34A;
+                    border-bottom: 5px solid #FFFFFF;
+                    border-right: 4px solid #FFFFFF;
+                    text-align: right;
+                    color: white;
+                    font-weight: 400;
+                    text-transform: uppercase;
+                  }
+                  section table thead th:last-child {
+                    border-right: none;
+                  }
+                  section table thead .desc {
+                    text-align: left;
+                  }
+                  section table thead .qty {
+                    text-align: center;
+                  }
+                  section table tbody td {
+                    padding: 10px;
+                    background: #E8F3DB;
+                    color: #777777;
+                    text-align: right;
+                    border-bottom: 5px solid #FFFFFF;
+                    border-right: 4px solid #E8F3DB;
+                  }
+                  section table tbody td:last-child {
+                    border-right: none;
+                  }
+                  section table tbody h3 {
+                    margin-bottom: 5px;
+                    color: #8BC34A;
+                    font-weight: 600;
+                  }
+                  section table tbody .desc {
+                    text-align: left;
+                  }
+                  section table tbody .qty {
+                    text-align: center;
+                  }
+                  section table.grand-total {
+                    margin-bottom: 45px;
+                  }
+                  section table.grand-total td {
+                    padding: 5px 10px;
+                    border: none;
+                    color: #777777;
+                    text-align: right;
+                  }
+                  section table.grand-total .desc {
+                    background-color: transparent;
+                  }
+                  section table.grand-total tr:last-child td {
+                    font-weight: 600;
+                    color: #8BC34A;
+                    font-size: 1.18181818181818em;
+                  }
+                  section table.grand-total tr:last-child td {
+                    font-weight: 600;
+                    color: #8BC34A;
+                    font-size: 1.18181818181818em;
+                  }
+                  .total-mano{
+                    font-weight: 600;
+                    color: #8BC34A;
+                    font-size: 1.18181818181818em;
+                  }
+              
+                  footer {
+                    margin-bottom: 20px;
+                  }
+                  footer .thanks {
+                    margin-bottom: 40px;
+                    color: #8BC34A;
+                    font-size: 1.16666666666667em;
+                    font-weight: 600;
+                  }
+                  footer .notice {
+                    margin-bottom: 25px;
+                  }
+                  footer .end {
+                    padding-top: 5px;
+                    border-top: 2px solid #8BC34A;
+                    text-align: center;
+                  }
+                  .text-color-success{
+                    color: rgb(75, 138, 2);
+                  }
+                  .text-color-primary{
+                    color: rgb(46, 14, 231);
+                  }
+                  .text-color-danger{
+                    color: #bb0707;
+                  }
+                  .text-color-dark{
+                    color: #000000;
+                  }
+                  .roan-logo{
+                    width: 150px;
+                    height: 100px;
+                  }
+                  .roan-texto{
+                    font-size: 20px;
+                  }
+                  .borde{
+                    border: red solid 1px;
+                  }
+                  .padre{
+                    display: table;
+                    height:200px;
+                  }
+                  .centrar-vertical{ 
+                    display: table-cell;
+                    vertical-align: middle;
+                  }
+                </style>
+              </head>
+              
+              <body>
+                <header class="clearfix">
+                  <div class="container">
+                    <div class="row text-center">
+                      <h1 class="title">{{org.name}}</h1>
+                    </div>
+                    <div class="row big-margin-top">
+                      <div class="col-lg-2 little-margin-top">
+                        <img class="roan-logo" src="../../../../assets/img/big-logo.png" alt="">
+                      </div>
+                      <div class="col-lg-10">
+                          <div class="little-margin-top big-margin-left roan-texto">
+                            <p>
+                              <i class="fas fa-map-marker-alt text-color-dark"></i> <strong>{{org.address}}</strong>
+                            </p>
+                            <p>
+                              <i class="fas fa-phone text-color-dark"></i> <strong>{{org.phone}}</strong>
+                            </p>
+                            <p>
+                              <i class="fas fa-at text-color-dark"></i> <strong>{{org.email}}</strong>
+                            </p>
+                          </div>
+                      </div>
+                    </div> 
+                  </div>
+                </header>
+              
+                <section>
+                  <div class="container">
+                    <div class="details clearfix">
+                      <div class="client left">
+                        <p><strong>PRESUPUESTO PARA:</strong></p>
+                        <span *ngIf="proyecto_id == 10000">
+                          <p >{{presupuesto.descripcion}}</p>
+                          <p >{{presupuesto.cliente}}</p>
+                          <p >{{presupuesto.ubicacion}}</p>
+                        </span>
+                        <span *ngIf="proyecto_id != 10000">
+                          <p class="name">{{proyectos[proyecto_id].descripcion}}</p>
+                          <p>{{proyectos[proyecto_id].cliente}}</p>
+                          <p>{{proyectos[proyecto_id].ubicacion}}</p>
+                        </span>
+                      </div>
+                      <div class="data right">
+                        <div class="title">PRESUPUESTO 0001</div>
+                        <div class="date">
+                          {{fecha}}
+                        </div>
+                      </div>
+                    </div>
+                    <div style="width: 100%; text-align: center; font-size: 25px;">
+                      <h2><strong>Materiales</strong></h2>
+                    </div>
+                    <table border="0" cellspacing="0" cellpadding="0">
+                      <thead>
+                        <tr>
+                          <th class="qty">Cantidad</th>
+                          <th class="desc">Descripción</th>
+                          <th class="unit">Precio unitario</th>
+                          <th class="total">Subtotal</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let material of materiales">
+                          <td class="qty">{{material.cantidad}}</td>
+                          <td class="desc">{{material.descripcion}}</td>
+                          <td class="unit">{{material.precio | money: 2}}</td>
+                          <td class="total">{{material.total | money: 2}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="no-break">
+                      <table class="grand-total">
+                        <tbody>
+                          <tr>
+                            <td class="desc"></td>
+                            <td class="unit" colspan="2">TOTAL MATERIAL:</td>
+                            <td class="total">{{total_material | money: 2}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div style="width: 100%; text-align: center; font-size: 25px;">
+                      <h2><strong>Mano de obra</strong></h2>
+                    </div>
+                    <table border="0" cellspacing="0" cellpadding="0">
+                      <thead>
+                        <tr>
+                          <th class="qty">Cantidad</th>
+                          <th class="desc">Descripción</th>
+                          <th class="unit">Precio unitario</th>
+                          <th class="total">Subtotal</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of mano_obra">
+                          <td class="qty">{{item.cantidad}}</td>
+                          <td class="desc">{{item.descripcion}}</td>
+                          <td class="unit">{{item.precio | money: 2}}</td>
+                          <td class="total">{{item.total | money: 2}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="no-break">
+                      <table class="grand-total">
+                        <tbody>
+                          <tr>
+                            <td class="desc"></td>
+                            <td class="unit total-mano" colspan="2">TOTAL MANO DE OBRA:</td>
+                            <td class="total">{{total_mano | money: 2}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table class="grand-total">
+                          <tbody>
+                            <tr>
+                              <td class="desc"></td>
+                              <td class="unit" colspan="2">TOTAL GLOBAL:</td>
+                              <td class="total">{{total_mano+total_material | money: 2}}</td>
+                            </tr>
+                          </tbody>
+                        </table> 
+                    </div>
+                  </div>
+                </section>
+              
+                <footer>
+                  <div class="container">
+                    <div class="row text-center">
+                      <div class="thanks">¡Gracias por preferirnos!</div>
+                    </div>
+                    
+                    <div class="notice">
+                      <div>NOTA:</div>
+                      <div>Los precios aquí dados están sujetos a cambios sin previo aviso</div>
+                    </div>
+                    <div class="end">ROÁN: Construcciones y remodelaciones</div>
+                  </div>
+                </footer>
+                </body>
+              
+            </div>
+          </div>  
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button class="btn btn-primary" (click)="guardarPresupuesto()">GUARDAR PRESUPUESTO</button>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!--Fin de modal de agregar un concepto-->

@@ -1194,6 +1194,9 @@ p.back-link {
 .text-color-danger{
   color: red;
 }
+.text-color-primary{
+  color: #0923b8;
+}
 .sinpadding [class*="col-"] {
   padding: 0;
 }
@@ -1203,7 +1206,6 @@ p.back-link {
 .table-add:hover{
   cursor: pointer;
 }
-
 .margin3px-left{
   margin-left: 3px;
 }

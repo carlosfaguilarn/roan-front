@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router'; 
 import { UserService } from "./user.service";
-import { identity } from '../../../node_modules/rxjs';
+import { identity } from 'rxjs';
 import { Usuario } from "../models/usuario.model";
 
 

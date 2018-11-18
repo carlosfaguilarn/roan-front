@@ -62,6 +62,9 @@ export class UserService {
     });
     return this.http.get(this.url+'api/permisos_por_rol/'+rol, {headers:headers}).map(res => res.json());
   }
+  getOrgName(){
+    return this.http.get(this.url+'api/org').map(res => res.json());
+  }
 
   getIdentidad(){
     let identity = JSON.parse(localStorage.getItem('identity'));

@@ -1,0 +1,17 @@
+<h1>{{title}}</h1>
+
+<table class="table">
+  <tbody>
+    <tr *ngFor="let presupuesto of presupuestos">
+      <td class="text-left col-lg-9">
+          <strong>{{presupuesto.proyecto}}</strong><br>
+          <p>{{presupuesto.descripcion}}</p>
+      </td>
+      <td class="text-right col-lg-3">
+          <a href="{{url}}api/pdf/{{presupuesto.url}}" target="_blank" class="btn btn-primary">Ver</a>
+          <a class="btn btn-success little-margin-left">Aprobar</a>
+          <a class="btn btn-danger little-margin-left">Rechazar</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

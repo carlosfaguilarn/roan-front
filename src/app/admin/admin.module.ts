@@ -21,6 +21,9 @@ import { AdminUsuariosComponent } from './components/admin-usuarios/admin-usuari
 // Guards
 import { AdminGuard } from '../services/admin.guard'; 
 import { SearchPipe } from './search.pipe';
+import { MoneyPipe } from './money.pipe';
+import { GestionComponent } from './components/gestion/gestion.component';
+import { VerPresupuestosComponent } from './components/ver-presupuestos/ver-presupuestos.component';
 
 @NgModule({
 	declarations:[
@@ -34,7 +37,10 @@ import { SearchPipe } from './search.pipe';
         ChartPieComponent,
         ChartBarComponent,
 		AdminUsuariosComponent,
-		SearchPipe
+		GestionComponent,
+		SearchPipe,
+		MoneyPipe,
+		VerPresupuestosComponent
 	],
 	imports:[
 		CommonModule,

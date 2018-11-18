@@ -9,6 +9,7 @@ import { Anuncio } from "../../../models/anuncio.model";
 export class PublicidadComponent implements OnInit {
   public title: string;
   public anuncios: Array<Anuncio>;
+  public anuncio: any;
   constructor() {
     this.title = "Anuncios publicitarios";
     this.anuncios = [
@@ -17,9 +18,14 @@ export class PublicidadComponent implements OnInit {
       {id:"4",descripcion:"Construcción de departamentos", img:"https://www.staffdigital.pe/blog/wp-content/uploads/panel-galeon-01.jpg"},
       {id:"5",descripcion:"Contratistas, proveedores y profesionales", img:"https://www.agendaconstruccion.cl/wp-content/uploads/2017/03/AgendaConstruccion-Banner2.jpg"},
     ];
+    this.anuncio = {
+      "descripción":""
+    };
   }
 
   ngOnInit() {
   }
+  subirAnuncio(){
 
+  }
 }

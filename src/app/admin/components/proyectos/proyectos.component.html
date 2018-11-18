@@ -1,3 +1,4 @@
+
 <h1>{{title}}</h1>
 <div class="big-margin-top">
   
@@ -16,215 +17,165 @@
         <th>Descripción</th>
         <th>Tipo servicio</th>
         <th>Ubicación</th> 
-        <th>Acción</th>
+        <th>Encargado</th>
+        <th>Gestionar</th>
     </thead>
     <tbody>
       <tr *ngFor="let proyecto of proyectos">
-        <ng-container *ngIf="proyecto.id_encargado == identity.id">
-          <td>{{proyecto.id}}</td>
-          <td>{{proyecto.titulo}}</td>
-          <td>{{proyecto.descripcion}}</td>
-          <td>{{proyecto.tipo}}</td>
-          <td>{{proyecto.ubicacion}}</td>
-          <td>{{proyecto.encargado}}</td>
-          
-          <td>
-            <a (click)="gestionarProyecto(proyecto.id)" class="btn btn-success btn-sm">
-              <i class="fas fa-chart-bar"></i> Gestionar
-            </a>
-          </td>          
-        </ng-container>
+        <td>{{proyecto.id}}</td>
+        <td>{{proyecto.titulo}}</td>
+        <td>{{proyecto.descripcion}}</td>
+        <td>{{proyecto.tipo}}</td>
+        <td>{{proyecto.ubicacion}}</td>
+        <td>{{proyecto.encargado}}</td>
+        <td>
+          <a routerLink = "/admin/gestionar/{{proyecto.id}}" class="btn btn-success btn-sm">
+            <i class="fas fa-chart-bar"></i>
+          </a>
+        </td>          
       </tr>
     </tbody> 
   </table>
  </div>
 </div>
-<a *ngIf="identity && identity.rol" href="#nuevoProyecto" role="button" class="btn btn-primary btn-sm little-margin-bottom boton-abajo float-right" data-toggle="modal">
+
+<a href="#nuevoProyecto" role="button" class="btn btn-primary btn-sm little-margin-bottom boton-abajo float-right" data-toggle="modal">
     <i class="fa fa-plus"></i> Agregar nuevo proyecto
-</a>  
-
-<!-- Modal para gestionar un proyecto -->
-<div class="modal fade" id="gestionarProyecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h5 class="modal-title" id="titleModalGestion"></h5> 
-      </div>
-      <div class="modal-body">
-        <h3 class="text-center">Conceptos de obra</h3>
-        <table class="table">
-          <thead>
-              <th>Descripción</th>
-              <th>Inicio</th>
-              <th>Finalización</th>
-              <th>Evidencias</th>
-              <th>Costo</th>
-              <th>Acciones</th> 
-          </thead>
-          <tbody>
-              <tr *ngFor="let concepto of conceptos">
-                  <td>{{concepto.descripcion}}</td>
-                  <td *ngIf="concepto.inicio">{{concepto.inicio}}</td>
-                  <td *ngIf="!concepto.inicio"></td>
-
-                  <td *ngIf="concepto.fin">{{concepto.fin}}</td>
-                  <td *ngIf="!concepto.fin"></td>
-
-                  <td *ngIf="concepto.evidencia"><img class="img-modal-min" [src]="concepto.evidencia" alt="No disp"></td>
-                  <td *ngIf="!concepto.evidencia"></td>
-
-                  <td *ngIf="concepto.costo">{{concepto.costo}}</td>
-                  <td *ngIf="!concepto.costo"></td>
-
-                  <td class="text-center">
-                    <a role="button" (click)="editarConcepto(concepto.id-1)" >
-                      <i class="fas fa-edit"></i>
-                    </a>
-                  </td>
-              </tr>
-          </tbody>
-        </table>
-        <div class="row text-center">
-          <a href="#nuevoConcepto" data-toggle="modal" role="button" class="btn btn-primary">
-            <i class="fas fa-plus btn-add"></i>
-          </a>
-        </div>
-        
-        <hr>
-        <div class="row text-center">
-          <div class="col-lg-4">
-            <h4>Total pendiente</h4>
-            <p class="text-color-adv"><strong>{{total_pendiente}}</strong></p>
+</a> 
+<div class="row">
+  <div class="col-lg-4">
+    <div class="card" style="width: 100%;">
+      <div class="card-body">
+          <h5 class="card-title">Proyectos</h5>
+          <div class="row">
+            <div class="col-lg-10 text-left"><i class="fas fa-dot-circle text-color-adv"></i> Activos:</div>
+            <div class="col-lg-2">{{proyectos_activos}}</div>
           </div>
-          <div class="col-lg-4">
-            <h4>avance</h4>
-            <p><strong>23%</strong></p>
+          <div class="row">
+            <div class="col-lg-10 text-left"><i class="fas fa-check-circle text-color-success"></i> Terminados:</div>
+            <div class="col-lg-2">{{proyectos_terminados}}</div>
           </div>
-          <div class="col-lg-4">
-            <h4>Total cobrado</h4>
-            <p class="text-color-success"><strong>{{total_cobrado}}</strong></p>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Aceptar</button>
+          <div class="row">
+            <div class="col-lg-10 text-left"><i class="fas fa-check-circle text-color-success"></i> Total:</div>
+            <div class="col-lg-2">{{proyectos.length}}</div>
+          </div>      
       </div>
     </div>
   </div>
-</div>
-<!--Fin del modal gestionar proyecto-->
-
- <!--Modal editar un concepto-->
- <div class="modal fade" id="editarConcepto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">{{editar_concepto}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  <div class="col-lg-4">
+      <div class="card" style="width: 100%;">
+          <div class="card-body">
+              <h5 class="card-title">Presupuestos</h5>
+              <div class="row">
+                <div class="col-lg-10 text-left"><i class="fas fa-dot-circle text-color-adv"></i> Aprobados:</div>
+                <div class="col-lg-2">{{presupuestos.aprobados}}</div>
+              </div>
+              <div class="row">
+                <div class="col-lg-10 text-left"><i class="fas fa-check-circle text-color-success"></i> Rechazados:</div>
+                <div class="col-lg-2">{{presupuestos.rechazados}}</div>
+              </div>
+              <div class="row">
+                <div class="col-lg-10 text-left"><i class="fas fa-check-circle text-color-primary"></i> Total:</div>
+                <div class="col-lg-2">{{presupuestos.total}}</div>
+              </div>    
+              <div class="row">
+                  <a routerLink="../ver-presupuestos" class="card-link btn">Ver presupuestos</a>
+              </div>  
+          </div>
       </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <div class="col-sm-6">
-              <label for="fin">Fin:</label>
-              <input type="text" class="form-control" name="fin" id="fin" required>
+  </div>
+  <div class="col-lg-4">
+      <div class="card" style="width: 100%;">
+          <div class="card-body">
+              <h5 class="card-title">Clientes</h5>
+              <div class="row" styles="background-color: grey;">
+                <div class="col-lg-10 text-left"><i class="fas fa-dot-circle text-color-adv"></i> Activos:</div>
+                <div class="col-lg-2">{{clientes.activos}}</div>
+              </div>
+              <div class="row">
+                <div class="col-lg-10 text-left"><i class="fas fa-check-circle text-color-success"></i> Inactivos:</div>
+                <div class="col-lg-2">{{clientes.inactivos}}</div>
+              </div>
+              <div class="row">
+                <div class="col-lg-10 text-left"><i class="fas fa-check-circle text-color-primary"></i> Total:</div>
+                <div class="col-lg-2">{{clientes.total}}</div>
+              </div>  
+              <div class="row">
+                  <a routerLink="../clientes" class="card-link btn">Ver clientes</a>
+              </div>      
           </div>
-          <div class="col-sm-6">
-              <label for="inicio">Inicio:</label>
-              <input type="text" class="form-control" name="inicio" id="inicio" required>
-          </div>
-        </div> 
-        <div class="form-group">
-          <div class="col-sm-6">
-              <label for="evidencia">Evidencia:</label>
-              <input type="file" class="form-control" name="evidencia" id="evidencia" required>
-          </div>
-          <div class="col-sm-6">
-              <label for="costo">Costo:</label>
-              <input type="text" class="form-control" name="costo" id="costo" required>
-          </div>
-        </div> 
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
-      </div>
-    </div>
   </div>
 </div>
-<!--Fin de modal de editar concepto-->
 
-  <!-- Modal para agregar un nuevo servicio -->
+
+
+  <!-- Modal para agregar un nuevo proyecto -->
   <div class="modal fade" id="nuevoProyecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <h5 class="modal-title" id="exampleModalLabel">Agrega un nuevo proyecto</h5> 
-          </div>
-          <div class="modal-body">
-            <div class="form-group row" style="text-align: left;">
-              <div class="col-lg-4">
-                  <label for="trabajador">Asignar a trabajador: </label>
-              </div>
-              <div class="col-lg-6">
-                  <select class="form-control" name="trabajador" id="trabajador">
-                    <option value="juan">Juan Romero</option>
-                    <option value="juan">Juan Romero</option>
-                    <option value="juan">Juan Romero</option>
-                  </select>
-              </div>
-              <div class="col-lg-2">
-                  <button class="btn btn-primary add"><i class="fas fa-plus"></i></button>
-              </div>
+          <form #nuevoForm="ngForm" (ngSubmit)="sumbitProyecto()">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h5 class="modal-title" id="exampleModalLabel">Agrega un nuevo proyecto</h5> 
             </div>
-            <div class="form-group row" style="text-align: start;">
+            <div class="modal-body">
+              <div class="form-group row" style="text-align: left;">
                 <div class="col-lg-4">
-                    <label for="trabajador">Asignar a cliente: </label>
+                    <label for="trabajador">Asignar encargado: </label>
                 </div>
-                <div class="col-lg-6">
-                    <select class="form-control" name="cliente" id="cliente">
-                      <option value="juan">Juan Romero</option>
-                      <option value="juan">Juan Romero</option>
-                      <option value="juan">Juan Romero</option>
+                <div class="col-lg-8">
+                    <select class="form-control" name="cliente" id="cliente" #encargado="ngModel" [(ngModel)]="nuevo.id_encargado">
+                      <option [value]="user.id" *ngFor="let user of users">
+                        {{user.name}}
+                      </option>
                     </select>
                 </div>
-                <div class="col-lg-2">
-                    <button class="btn btn-primary add"><i class="fas fa-plus"></i></button>
-                </div>
               </div>
-            <hr>
-            <div class="form-group" style="text-align: start;">
-              <label for="titulo">Titulo:</label>
-              <input type="text" class="form-control" name="titulo" id="titulo" required>
+              <div class="form-group row" style="text-align: start;">
+                  <div class="col-lg-4">
+                      <label for="trabajador">Asignar a cliente: </label>
+                  </div>
+                  <div class="col-lg-8">
+                      <select class="form-control" name="cliente" id="cliente" #cliente="ngModel" [(ngModel)]="nuevo.cliente">
+                        <option [value]="cliente.id" *ngFor="let cliente of clients">
+                          {{cliente.name}}
+                        </option>
+                      </select>
+                  </div> 
+                </div>
+              <hr>
+              <div class="form-group" style="text-align: start;">
+                <label for="titulo">Titulo:</label>
+                <input type="text" class="form-control" #titulo="ngModel" [(ngModel)]="nuevo.titulo" name="titulo" id="titulo" required>
+              </div>
+              <div class="form-group" style="text-align: start;">
+                <label for="descripcion">Descripción:</label>
+                <input type="text" class="form-control" #descripcion="ngModel" [(ngModel)]="nuevo.descripcion" name="descripcion" id="descripcion" required>
+              </div>
+              <div class="form-group" style="text-align: start;">
+                <label for="ubicacion">Tipo:</label>
+                <input type="text" class="form-control" #tipo="ngModel" [(ngModel)]="nuevo.tipo" name="tipo" id="tipo" required>
+              </div> 
+              <div class="form-group" style="text-align: start;">
+                <label for="ubicacion">Ubicación:</label>
+                <input type="text" class="form-control" #ubicacion="ngModel" [(ngModel)]="nuevo.ubicacion" name="ubicacion" id="ubicacion" required>
+              </div> 
+              <div class="form-group" style="text-align: start;">
+                <label for="imagen">Fotos del terreno:</label><br>
+                <span class="text-center">
+                    <input type="file" class="form-control" name="imagen" id="imagen">
+                </span> 
+              </div>
+              
             </div>
-            <div class="form-group" style="text-align: start;">
-              <label for="descripcion">Descripción:</label>
-              <input type="text" class="form-control" name="descripcion" id="descripcion" required>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
             </div>
-            <div class="form-group" style="text-align: start;">
-              <label for="ubicacion">Ubicación:</label>
-              <input type="text" class="form-control" name="ubicacion" id="ubicacion" required>
-            </div> 
-            <div class="form-group" style="text-align: start;">
-              <label for="imagen">Fotos del terreno:</label><br>
-              <span class="text-center">
-                  <input type="file" class="form-control" name="imagen" id="imagen">
-              </span> 
-            </div>
-            
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary">Guardar</button>
-          </div>
+          </form>
         </div>
       </div>
     </div>

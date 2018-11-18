@@ -1,0 +1,178 @@
+<div class="row">
+  <div class="col-lg-3" style="text-align: right;">
+    <strong>Título:</strong>
+  </div>
+  <div class="col-lg-9" style="text-align: left;">
+    {{proyecto.titulo}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-3" style="text-align: right;">
+    <strong>Descripción:</strong>
+  </div>
+  <div class="col-lg-9" style="text-align: left;">
+    {{proyecto.descripcion}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-3" style="text-align: right;">
+    <strong>Encargado:</strong>
+  </div>
+  <div class="col-lg-9" style="text-align: left;">
+    {{proyecto.encargado}}
+  </div>
+</div>
+
+<h3 class="text-center">Conceptos de obra</h3>
+<table class="table">
+  <thead>
+      <th>Descripción</th>
+      <th>Costo</th>
+      <th>Inicio</th>
+      <th>Finalización</th>
+      <th>Evidencias</th>
+      <th>Acciones</th> 
+  </thead>
+  <tbody>
+      <tr *ngFor="let concepto of conceptos; let i = index">
+          <td>{{concepto.descripcion}}</td>
+          <td>{{concepto.costo | money: 2}}</td>
+
+          <td *ngIf="concepto.inicio">{{concepto.inicio}}</td>
+          <td *ngIf="!concepto.inicio"></td>
+
+          <td *ngIf="concepto.fin">{{concepto.fin}}</td>
+          <td *ngIf="!concepto.fin"></td>
+
+          <td *ngIf="concepto.evidencia"><img class="img-modal-min" [src]="url+'api/images/'+concepto.evidencia" alt="No disp"></td>
+          <td *ngIf="!concepto.evidencia"></td>
+
+          <td class="text-center">
+            <a role="button" (click)="verConcepto(i)" >
+              <i class="fas fa-edit"></i>
+            </a>
+          </td>
+      </tr>
+  </tbody>
+</table>
+<div class="row text-center">
+  <a href="#nuevoConcepto" data-toggle="modal" role="button" class="btn btn-primary">
+    <i class="fas fa-plus btn-add"></i>
+  </a>
+</div>
+
+<hr>
+<div class="row text-center">
+  <div class="col-lg-4">
+    <h4>Total pendiente</h4>
+    <p class="text-color-adv"><strong>{{total_pendiente | money: 2}}</strong></p>
+  </div>
+  <div class="col-lg-4">
+    <h4>avance</h4>
+    <p><strong>{{avance}}%</strong></p>
+  </div>
+  <div class="col-lg-4">
+    <h4>Total cobrado</h4>
+    <p class="text-color-success"><strong>{{total_cobrado | money: 2}}</strong></p>
+  </div>
+</div>
+
+
+<!--Modal agregar un concepto ************************************************************************-->
+<div class="modal fade" id="nuevoConcepto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form #loginForm="ngForm" (ngSubmit)="nuevoConcepto()">
+        <div class="modal-header">
+          <h5 class="modal-title">Agrega una nueva tarea</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="descripcion">*Descripción:</label>
+            <input type="text" class="form-control" #descripcion="ngModel" [(ngModel)]="nuevo_concepto.descripcion" name="descripcion" id="descripcion" required>
+          </div>
+          <div class="form-group">
+              <label for="costo">*Costo:</label>
+              <input type="text" class="form-control" #costo="ngModel" [(ngModel)]="nuevo_concepto.costo" name="costo" id="costo" required>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+                <label for="inicio">Inicio:</label>
+                <input type="text" class="form-control" #inicio="ngModel" [(ngModel)]="nuevo_concepto.inicio" name="inicio" id="inicio">
+            </div>
+            <div class="form-group col-sm-6">
+                <label for="fin">Fin:</label>
+                <input type="text" class="form-control" #fin="ngModel" [(ngModel)]="nuevo_concepto.fin" name="fin" id="fin">
+            </div>
+          </div>
+          <div class="form-group">
+              <label for="evidencia">Evidencia:</label>
+              <input type="file" class="form-control" (change)="fileChangeEvent($event)">
+          </div> 
+        </div>  
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--Fin de modal de agregar un concepto-->
+
+
+
+
+
+<!--Modal editar un concepto ************************************************************************-->
+<div class="modal fade" id="editarConcepto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form #loginForm="ngForm" (ngSubmit)="editarConcepto()">
+          <div class="modal-header">
+            <h5 class="modal-title">{{editar_concepto.descripcion}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="descripcion">*Descripción:</label>
+              <input type="text" class="form-control" #descripcion="ngModel" [(ngModel)]="editar_concepto.descripcion" name="descripcion" id="descripcion" readonly>
+            </div>
+            <div class="form-group">
+                <label for="costo">*Costo:</label>
+                <input type="text" class="form-control" #costo="ngModel" [(ngModel)]="editar_concepto.costo" name="costo" id="costo" readonly>
+            </div>
+            <div class="row">
+              <div class="form-group col-sm-6">
+                  <label for="inicio">Inicio:</label>
+                  <input type="text" class="form-control" #inicio="ngModel" [(ngModel)]="editar_concepto.inicio" name="inicio" id="inicio">
+              </div>
+              <div class="form-group col-sm-6">
+                  <label for="fin">Fin:</label>
+                  <input type="text" class="form-control" #fin="ngModel" [(ngModel)]="editar_concepto.fin" name="fin" id="fin">
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="evidencia">Evidencia:</label>
+                <input type="file" class="form-control" #evidencia="ngModel" [(ngModel)]="editar_concepto.evidencia" name="evidencia" id="evidencia" (change)="fileChangeEvent($event)">
+            </div> 
+          </div>  
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--Fin de modal de agregar un concepto-->
+
+
+
+
+

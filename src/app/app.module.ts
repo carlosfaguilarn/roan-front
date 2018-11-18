@@ -5,6 +5,7 @@ import { routing, appRoutingProviders } from './app.routing';
 import { FormsModule } from '@angular/forms';
 import { ChartModule } from 'angular-highcharts';
 import { AppComponent } from './app.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 //Importar el módulo de administración
 import { AdminModule } from "./admin/admin.module";
@@ -14,7 +15,6 @@ import { NuestrosServiciosComponent } from "./components/nuestros-servicios/nues
 import { CotizacionesComponent } from "./components/cotizaciones/cotizaciones.component";
 import { ContactoComponent } from "./components/contacto/contacto.component";
 import { LoginComponent } from "./components/login/login.component";
-
 
 
 @NgModule({
@@ -27,6 +27,7 @@ import { LoginComponent } from "./components/login/login.component";
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     FormsModule,
     HttpModule,
     routing,

@@ -13,3 +13,9 @@
     margin-top: -7px; 
     margin-right: 10px; 
 } 
+.text-end{
+    text-align: right;
+}
+.contenido{
+    background-color: rgb(109, 100, 100);
+}

@@ -12,61 +12,57 @@
     <thead>
         <th>ID</th>
         <th>Nombre</th>
-        <th>Apellido</th>
         <th>Teléfono</th>
         <th>Dirección</th> 
         <th>Email</th> 
         <th>Acción</th>
     </thead>
     <tbody>
-      <tr *ngFor="let cliente of clientes | search: busqueda">
+      <tr *ngFor="let cliente of clientes">
           <td>{{cliente.id}}</td>
-          <td>{{cliente.nombre}}</td>
-          <td>{{cliente.apellido}}</td>
+          <td>{{cliente.name}}</td>
           <td>{{cliente.telefono}}</td>
           <td>{{cliente.direccion}}</td>
           <td>{{cliente.email}}</td> 
           <td>
-            <a href="#cliente-{{cliente.id}}" role="button" class="btn btn-success btn-sm" data-toggle="modal">
-              <i class="fas fa-cog"></i> Editar
+            <a href="#cliente-{{cliente.id}}" role="button" class="" data-toggle="modal">
+              <i class="fas fa-edit"></i>
             </a>
           </td>
                   <!-- Modal para editar un cliente -->
                   <div class="modal fade" id="cliente-{{cliente.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Edita al cliente</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="form-group">
-                            <label for="id">ID:</label>
-                            <input type="text" class="form-control" name="id" id="id" [value]="cliente.id" disabled>
+                        <form #dataForm="ngForm" (ngSubmit)="editarCliente(cliente.id)">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{cliente.name}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
                           </div>
-                          <div class="form-group">
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" class="form-control" name="nombre" id="nombre" [value]="cliente.nombre" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="apellido">Apellido:</label>
-                            <input type="text" class="form-control" name="apellido" id="apellido" [value]="cliente.apellido" required>
-                          </div> 
-                          <div class="form-group">
-                            <label>Contacto:</label> <br>
-                            <div class="col-lg-6">
-                                <input type="text" class="form-control" placeholder="Teléfono" name="telefono" id="telefono" [value]="cliente.telefono" required>
+                          <div class="modal-body">
+                            <div class="form-group">
+                              <label for="nombre">Nombre:</label>
+                              <input type="text" class="form-control" #name="ngModel" [(ngModel)]="editar_cliente.name" name="nombre" id="nombre" [value]="cliente.name" required>
                             </div>
-                            <div class="col-lg-6">
-                                <input type="text" class="form-control" placeholder="Correo electrónico" name="email" id="email" [value]="cliente.email" required>
+                            <div class="form-group">
+                                <label for="nombre">Dirección:</label>
+                                <input type="text" class="form-control" #direccion="ngModel" [(ngModel)]="editar_cliente.direccion" name="direccion" id="direccion" [value]="cliente.direccion" required>
+                            </div>
+                            <div class="form-group">
+                              <label>Contacto:</label> <br>
+                              <div class="col-lg-6">
+                                  <input type="text" class="form-control" placeholder="Teléfono" #telefono="ngModel" [(ngModel)]="editar_cliente.telefono" name="telefono" id="telefono" [value]="cliente.telefono" required>
+                              </div>
+                              <div class="col-lg-6">
+                                  <input type="text" class="form-control" placeholder="Correo electrónico" #email="ngModel" [(ngModel)]="editar_cliente.email" name="email" id="email" [value]="cliente.email" required>
+                              </div> 
                             </div> 
-                          </div> 
-                        </div>
+                          </div>
+                        </form>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                          <button type="button" class="btn btn-primary">Aceptar</button>
+                          <button type="submit" class="btn btn-primary">Aceptar</button>
                         </div>
                       </div>
                     </div>
@@ -82,10 +78,13 @@
     <i class="fa fa-plus"></i> Agregar nuevo cliente
 </a>  
 
-  <!-- Modal para agregar un nuevo cliente -->
-  <div class="modal fade" id="nuevocliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
+  
+
+<!-- Modal para agregar un nuevo cliente -->
+<div class="modal fade" id="nuevocliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form #dataForm="ngForm" (ngSubmit)="nuevoCliente()">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Agrega un nuevo cliente</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -94,34 +93,27 @@
           </div>
           <div class="modal-body">
             <div class="form-group" style="text-align: start;">
-              <label for="id">ID:</label>
-              <input type="text" class="form-control" name="id" id="id" required>
-            </div>
-            <div class="form-group" style="text-align: start;">
               <label for="nombre">Nombre:</label>
-              <input type="text" class="form-control" name="nombre" id="nombre" required>
-            </div>
-            <div class="form-group" style="text-align: start;">
-              <label for="apellido">Apellido:</label>
-              <input type="text" class="form-control" name="apellido" id="apellido" required>
+              <input type="text" class="form-control" #name="ngModel" [(ngModel)]="cliente.name" name="name" id="name" required>
             </div> 
             <div class="form-group" style="text-align: start;">
               <label for="telefono">Teléfono:</label><br>
-              <input type="text" class="form-control" name="telefono" id="telefono" required>
+              <input type="text" class="form-control" #telefono="ngModel" [(ngModel)]="cliente.telefono" name="telefono" id="telefono" required>
             </div>
             <div class="form-group" style="text-align: start;">
               <label for="direccion">Dirección:</label>
-              <input type="text" class="form-control" name="direccion" id="direccion" required>
+              <input type="text" class="form-control" #direccion="ngModel" [(ngModel)]="cliente.direccion" name="direccion" id="direccion" required>
             </div> 
             <div class="form-group" style="text-align: start;">
               <label for="email">Correo electrónico:</label><br>
-              <input type="text" class="form-control" name="email" id="email" required>
+              <input type="text" class="form-control" #email="ngModel" [(ngModel)]="cliente.email" name="email" id="email" required>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
+  </div>

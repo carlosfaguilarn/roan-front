@@ -5,15 +5,15 @@ export class Proyecto {
     public tipo: string;
     public cliente: string;
     public ubicacion: string;
-    public trabajadores: string;
+    public id_encargado: string;
 
-    constructor(id:string, titulo:string, descripcion:string, tipo:string, cliente:string, ubicacion:string, trabajadores:string){
+    constructor(id:string, titulo:string, descripcion:string, tipo:string, cliente:string, ubicacion:string, id_encargado:string){
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.tipo = tipo;
         this.cliente = cliente;
         this.ubicacion = ubicacion;
-        this.trabajadores = trabajadores;
+        this.id_encargado = id_encargado;
     }
 }

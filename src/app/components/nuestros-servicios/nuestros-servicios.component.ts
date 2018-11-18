@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { GLOBAL } from "../../services/global";
 @Component({
   selector: 'app-nuestros-servicios',
   templateUrl: './nuestros-servicios.component.html',
@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NuestrosServiciosComponent implements OnInit {
   public title = "Nuestros servicios";
-  constructor() { }
+  public url: string;
+  
+  constructor() { 
+    this.url = GLOBAL.url;
+  }
 
   ngOnInit() {
   }
