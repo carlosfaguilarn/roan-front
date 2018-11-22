@@ -3,7 +3,6 @@ import { UserService } from "../../../services/user.service";
 import { GLOBAL } from "../../../services/global";
 import { Usuario } from "../../../models/usuario.model"; 
 import { Router } from "@angular/router";
-
 declare var $:any;
 @Component({
   selector: 'app-admin-usuarios',
@@ -17,7 +16,7 @@ export class AdminUsuariosComponent implements OnInit {
   public id_usuario: string = "1";
   public id_rol: string = "1";
   public id_rol_permiso: string = "1";
-  public id_permiso: string = "";
+  public id_permiso: string = "1";
   public id_rol_detalle: string = "1";
   public roles:any;
   public permisos: any;
@@ -111,7 +110,7 @@ export class AdminUsuariosComponent implements OnInit {
         console.log("errors", JSON.stringify(<any> error));
         if(err.indexOf('token_expired')){
           alert("El token de seguridad ha expirado, inicia sesión nuevamente por seguridad");
-          this.router.navigate(['/adminlog']);
+          //this.router.navigate(['/adminlog']);
         }
       });
   }

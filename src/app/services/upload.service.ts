@@ -33,7 +33,7 @@ export class UploadService {
   }
 
 
-  makeFileRequest(url:string, files:Array<File>, name:string, id_concepto:string){
+  makeFileRequest(url:string, files:Array<File>, name:string, id:string){
     return new Promise(function(resolve, reject){
         var formData: any = new FormData();
         var xhr = new XMLHttpRequest();
@@ -41,7 +41,7 @@ export class UploadService {
         for(var i=0; i<files.length; i++){
             formData.append(name, files[i]);
         }
-        formData.append('id', id_concepto);
+        formData.append('id', id);
         
         xhr.onreadystatechange = function(){
             if(xhr.readyState == 4){

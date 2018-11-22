@@ -197,7 +197,8 @@ input.form-control {
   padding-top: 18px; }
 
 .navbar-header .navbar-brand span {
-  color: white; }
+  color: white; 
+}
 
 .navbar-toggle {
   background: rgba(255, 255, 255, 0.1);
@@ -830,7 +831,8 @@ a.label:hover, a.label:focus {
 
 .nav-pills li a, .nav-pills li a:hover, .nav-pills li.active a, .nav-pills li.active a:hover {
   border: 0;
-  padding: 7px 15px; }
+  
+}
 
 .nav-pills li.active a, .nav-pills li.active a:hover {
   background: #30a5ff; }
@@ -942,7 +944,6 @@ a.label:hover, a.label:focus {
   margin: 0px 0; }
 
 .profile-sidebar {
-  padding: 10px 0;
   border-bottom: 1px solid #e9ecf2; }
 
 .indicator {
@@ -953,7 +954,6 @@ a.label:hover, a.label:focus {
   margin-right: 5px; }
 
 .profile-userpic { 
-  margin: 0px 0px 0px 0px;
   width: 50px;
   height: 50px;
   border-radius: 9999px !important; 
@@ -1211,4 +1211,9 @@ p.back-link {
 }
 .pointer{
   cursor: pointer;
+}
+
+.img-middle{
+  width: 180px;
+  height: 120px; 
 }

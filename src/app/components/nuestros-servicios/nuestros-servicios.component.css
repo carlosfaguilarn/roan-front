@@ -1,7 +1,11 @@
 .desc {
     position: absolute;
-    color: #fff;
-    bottom: 52px;
-    left: 18px;
-    font-size:20px;
+    color:rgb(255, 255, 255);
+    left: 0;
+    right: 0;
+    top: 100px;
+    font-size: 40px;
+}
+#myCarousel{
+    max-height: 800px;
 }

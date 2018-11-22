@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Servicio } from "../../../models/servicio.model";
 import { ServiciosService } from "../../../services/servicios.service";
+import { GLOBAL } from "../../../services/global";
 import { Observable } from "rxjs/Observable";
 import { Router } from "@angular/router";
 @Component({
@@ -12,17 +13,16 @@ import { Router } from "@angular/router";
 export class ServiciosComponent implements OnInit {
   public servicios : Array<Servicio>;
   public busqueda: string = '';
+  public url: string;
   constructor(
     private _serviciosServices: ServiciosService,
     private router: Router
   ){ 
-    this.getServices();
+    this.url = GLOBAL.url;
   }
 
   ngOnInit(){
-    if(!this.servicios){
-       
-    }
+    this.getServices();
   }
   
   getServices(){

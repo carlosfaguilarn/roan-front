@@ -14,8 +14,7 @@ import { PublicidadComponent } from "./components/publicidad/publicidad.componen
 import { ChartArrowComponent } from "./components/charts/chart-arrow/chart-arrow.component";
 import { ChartPieComponent } from "./components/charts/chart-pie/chart-pie.component";
 import { ChartBarComponent } from "./components/charts/chart-bar/chart-bar.component";
-
-// 
+// Animación
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminUsuariosComponent } from './components/admin-usuarios/admin-usuarios.component';
 // Guards

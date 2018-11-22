@@ -44,23 +44,29 @@ export class ProjectService{
 	}
 
 	getConceptsProject(proyecto_id: string){
-    let headers = new Headers({
-      'Content-Type':'application/json',
-      'Authorization':'Bearer '+this.token
-    });
-    return this.http.get(this.url+'api/conceptos/'+proyecto_id, {headers:headers}).map(res => res.json());
+		let headers = new Headers({
+		'Content-Type':'application/json',
+		'Authorization':'Bearer '+this.token
+		});
+		return this.http.get(this.url+'api/conceptos/'+proyecto_id, {headers:headers}).map(res => res.json());
 	}
 	newConcept(request){
 		let params = JSON.stringify(request);
-    let headers = new Headers({'Content-Type':'application/json'});
+		let headers = new Headers({
+			'Content-Type':'application/json',
+			'Authorization':'Bearer '+this.token
+		});
 
     return this.http.put(this.url+'api/nuevoconcepto', params, {headers: headers}).map(res => res.json());
 	}
 	editConcept(request){
 		let params = JSON.stringify(request);
-    let headers = new Headers({'Content-Type':'application/json'});
+    	let headers = new Headers({
+			'Content-Type':'application/json',
+			'Authorization':'Bearer '+this.token
+		});
 
-    return this.http.post(this.url+'api/editarconcepto', params, {headers: headers}).map(res => res.json());
+    	return this.http.post(this.url+'api/editarconcepto', params, {headers: headers}).map(res => res.json());
 	}
 
 	newBudget(request){
@@ -75,5 +81,15 @@ export class ProjectService{
 				'Content-Type':'application/json'
 		}); 
 		return this.http.get(this.url+'api/presupuestos', {headers: headers}).map(res => res.json());
+	}
+
+	status(request){
+		let params = JSON.stringify(request);
+    	let headers = new Headers({
+			'Content-Type':'application/json',
+			'Authorization':'Bearer '+this.token
+		});
+
+    	return this.http.post(this.url+'api/status', params, {headers: headers}).map(res => res.json());
 	}
 }

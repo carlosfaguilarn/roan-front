@@ -3,7 +3,7 @@
     <a class="link-anuncio" href="#editarAnuncio-{{anuncio.id}}" role="button" data-toggle="modal">
       <div class="thumbnail caja">
         <div class="animal-image-mask">
-          <img [src]="anuncio.img" alt="{{anuncio.descripcion}}" *ngIf="anuncio.img">
+          <img src="{{url}}api/images/{{anuncio.img}}" alt="{{anuncio.descripcion}}" *ngIf="anuncio.img">
           <!--<img [src]="https://via.placeholder.com/270x200" alt="{{anuncio.descripcion}}" *ngIf="!anuncio.img">-->
         </div>
         <div class="caption">
@@ -30,7 +30,7 @@
           <div class="form-group">
             <label for="imagen">Imagen:</label>
             <div class="text-center"> 
-                <img class="img-modal-max" [src]="anuncio.img" alt="No disponible">
+                <img class="img-modal-max" src="http://localhost:8000/api/images/{{anuncio.img}}" alt="No disponible">
                 <br><br>
                 <input type="file" class="form-control" name="imagen" id="imagen">
             </div>
@@ -68,19 +68,30 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label for="descripcion">Descripción:</label>
-              <input type="text" class="form-control" name="descripcion" id="descripcion" required>
+              <label for="descripcion">*Descripción:</label>
+              <input type="text" class="form-control" #descripcion="ngModel" [(ngModel)]="anuncio.descripcion" name="descripcion" id="descripcion" required>
             </div>
             <div class="form-group">
-              <label for="imagen">Imagen:</label><br>
+              <label for="servicio_id">Relaciona el anuncio con un servicio:</label>
+              <select [(ngModel)]="anuncio.servicio_id" name="servicio_id" id="servicio_id" class="form-control">
+                  <option value="10000">
+                      Seleccionar servicio
+                  </option>
+                  <option [value]="servicio.id" *ngFor="let servicio of servicios">
+                    {{servicio.descripcion}}
+                  </option>
+                </select>  
+            </div>
+            <div class="form-group">
+              <label for="imagen">*Imagen:</label><br>
               <span class="text-center">
-                  <input type="file" class="form-control" name="imagen" id="imagen">
+                  <input type="file" class="form-control" (change)="fileChangeEvent($event)">
               </span> 
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
           </div>
         </form>
       </div>

@@ -20,14 +20,32 @@ export class VerPresupuestosComponent implements OnInit {
 
   ngOnInit() {
     this.getBudgets();
-  }
+	}
+	status(id: string, status: string){
+		let request = {id: id, status: status};
+		this.projectServices.status(request).subscribe(
+			response => {
+				if(!response.message){
+					console.log('error al modificar status');
+				}else{
+					console.log("Status modificado: "+status);
+					this.getBudgets();
+				}
+			},
+			error => {
+				let err = JSON.stringify(<any> error);
+				console.log("errors", JSON.stringify(<any> error));
+			}); 
+	}
   getBudgets(){
 	  this.projectServices.getBudgets().subscribe(
 		response => {
 		  if(!response.presupuestos){
 				console.log("No hay presupuestos");
 			}else{
-				this.presupuestos = response.presupuestos;
+				this.presupuestos = response.presupuestos.con_proyecto;
+				//Array.prototype.push(this.presupuestos, response.presupuestos.sin_proyecto);
+
 				console.log("lista de presupuestos: ", this.presupuestos);
 		  }
 		},
@@ -41,5 +59,4 @@ export class VerPresupuestosComponent implements OnInit {
 			}
 		});
 	}
-
 }

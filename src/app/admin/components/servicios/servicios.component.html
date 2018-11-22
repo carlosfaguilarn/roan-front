@@ -24,11 +24,11 @@
         <th>Acción</th>
     </thead>
     <tbody>
-      <tr *ngFor="let servicio of servicios">
+      <tr *ngFor="let servicio of servicios | search: busqueda async">
           <td>{{servicio.id}}</td>
           <td>{{servicio.descripcion}}</td>
           <td>{{servicio.tipo}}</td>
-          <td><img class="img-modal-min" [src]="servicio.imagen" alt=""></td>
+          <td><img class="img-modal-min" src="{{url}}api/images/{{servicio.imagen}}" alt=""></td>
           <td>
             <a href="#servicio-{{servicio.id}}" role="button" class="btn btn-success btn-sm" data-toggle="modal">
               <i class="fa fa-cog"></i> Editar

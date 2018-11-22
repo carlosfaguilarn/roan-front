@@ -15,7 +15,7 @@ import { NuestrosServiciosComponent } from "./components/nuestros-servicios/nues
 import { CotizacionesComponent } from "./components/cotizaciones/cotizaciones.component";
 import { ContactoComponent } from "./components/contacto/contacto.component";
 import { LoginComponent } from "./components/login/login.component";
-
+import { FiltroPipe } from "./filtro.pipe";
 
 @NgModule({
   declarations: [
@@ -23,7 +23,8 @@ import { LoginComponent } from "./components/login/login.component";
     NuestrosServiciosComponent,
     CotizacionesComponent,
     ContactoComponent,
-    LoginComponent
+    LoginComponent,
+    FiltroPipe
   ],
   imports: [
     BrowserModule,

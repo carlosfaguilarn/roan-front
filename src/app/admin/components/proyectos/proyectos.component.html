@@ -21,7 +21,7 @@
         <th>Gestionar</th>
     </thead>
     <tbody>
-      <tr *ngFor="let proyecto of proyectos">
+      <tr *ngFor="let proyecto of proyectos | search: busqueda async">
         <td>{{proyecto.id}}</td>
         <td>{{proyecto.titulo}}</td>
         <td>{{proyecto.descripcion}}</td>
@@ -29,7 +29,7 @@
         <td>{{proyecto.ubicacion}}</td>
         <td>{{proyecto.encargado}}</td>
         <td>
-          <a routerLink = "/admin/gestionar/{{proyecto.id}}" class="btn btn-success btn-sm">
+          <a routerLink = "/admin/gestionar/{{proyecto.id}}" class="btn-sm">
             <i class="fas fa-chart-bar"></i>
           </a>
         </td>          

@@ -2,15 +2,18 @@
 
 <table class="table">
   <tbody>
-    <tr *ngFor="let presupuesto of presupuestos">
+    <tr *ngFor="let presupuesto of presupuestos | search: busqueda async">
       <td class="text-left col-lg-9">
           <strong>{{presupuesto.proyecto}}</strong><br>
-          <p>{{presupuesto.descripcion}}</p>
-      </td>
+          <p>{{presupuesto.descripcion}}
+            <span *ngIf="presupuesto.status && presupuesto.status == 'APROBADO'"><em class="fas fa-circle online-point text-color-success"></em> Aprobado</span>
+            <span *ngIf="presupuesto.status && presupuesto.status == 'RECHAZADO'"><em class="fas fa-circle online-point text-color-danger"></em> Rechazado</span>
+          </p>
+          </td>
       <td class="text-right col-lg-3">
           <a href="{{url}}api/pdf/{{presupuesto.url}}" target="_blank" class="btn btn-primary">Ver</a>
-          <a class="btn btn-success little-margin-left">Aprobar</a>
-          <a class="btn btn-danger little-margin-left">Rechazar</a>
+          <a (click)="status(presupuesto.id, 'APROBADO')" class="btn btn-success little-margin-left">Aprobar</a>
+          <a (click)="status(presupuesto.id, 'RECHAZADO')" class="btn btn-danger little-margin-left">Rechazar</a>
       </td>
     </tr>
   </tbody>

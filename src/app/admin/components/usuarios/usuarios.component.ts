@@ -16,13 +16,25 @@ export class UsuariosComponent implements OnInit {
 
 	constructor(private userService: UserService) { 
 		this.title = "Usuarios";
-	  /*this.usuarios = [
-      {id: '1', nombre:"Rosario", apellido:'Aguilar Santos', telefono:'6682341254', direccion:'América 2497, Las Cerezas, Los Mochis', email:"rosario.aguilar@gmail.com", role:"ADMINISTRADOR"},
-      {id: '2', nombre:"Carlos Francisco", apellido:'Aguilar Navarrete', telefono:'6682124312', direccion:'Diente de León 1336, Las Cerezas, Los Mochis', email:"carlosf.aguilarn@gmail.com", role:"CONTRATISTA"}
-		];*/
+	  
+
 		this.identity = userService.getIdentidad();
 	}
 	ngOnInit() {
+		this.getUsers();
+	}
+	getUsers(){
+		this.userService.getUsers().subscribe(
+			response=>{
+				if(!response.users){
+					alert("No hay usuarios registrados");
+				}else{
+					this.usuarios = response.users;
+				}
+			},error =>{
+				console.log("error al buscar los usuarios");
+			}
+		);
 	}
 }
 

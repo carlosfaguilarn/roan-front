@@ -30,14 +30,20 @@ export class UserService {
   }
   asignRolUser(request){
     let params = JSON.stringify(request);
-    let headers = new Headers({'Content-Type':'application/json'});
+    let headers = new Headers({
+      'Content-Type':'application/json',
+      'Authorization':'Bearer '+this.getToken()
+    });
 
     return this.http.put(this.url+'api/asignar_rol', params, {headers: headers})
                     .map(res => res.json());
   }
   asignPermisionRole(request){
     let params = JSON.stringify(request);
-    let headers = new Headers({'Content-Type':'application/json'});
+    let headers = new Headers({
+      'Content-Type':'application/json',
+      'Authorization':'Bearer '+this.getToken()
+    });
 
     return this.http.put(this.url+'api/asignar_permiso', params, {headers: headers})
                     .map(res => res.json());
@@ -51,7 +57,8 @@ export class UserService {
   }
   getPermisos(){
     let headers = new Headers({
-      'Content-Type':'application/json'
+      'Content-Type':'application/json',
+      'Authorization':'Bearer '+this.getToken()
     });
     return this.http.get(this.url+'api/permisos', {headers:headers}).map(res => res.json());
   }

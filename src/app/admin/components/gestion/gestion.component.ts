@@ -66,8 +66,11 @@ export class GestionComponent implements OnInit {
               this.nuevo_concepto.evidencia = result.img;
               console.log(this.nuevo_concepto);
           });
+          this.filesToUpload.length = 0;
           alert("Se agregó la tarea correctamente");
         }
+        this.getConceptsProject();
+        this.getProject();
       },
       error => {
         var errorMessage = <any> error;
@@ -111,10 +114,22 @@ export class GestionComponent implements OnInit {
     this._projectServices.editConcept(this.editar_concepto).subscribe(
       response => {
         if(!response.message){
-          console.log(response.message);
-        }else{
           console.log("Hubo algún error al editar");
           console.log(response);
+        }else{
+          if(this.filesToUpload){
+            //subida de imagen
+            this._uploadService.makeFileRequest(this.url+'api/guardarimagen', this.filesToUpload, 'img', response.concept.id)
+            .then((result:any) => {
+                this.nuevo_concepto.evidencia = result.img;
+                console.log(this.nuevo_concepto);
+                this.getConceptsProject();
+            });
+          }
+          this.filesToUpload.length = 0;
+          this.getConceptsProject();
+          this.getProject();
+          alert(response.message);
         }
       },
       error => {

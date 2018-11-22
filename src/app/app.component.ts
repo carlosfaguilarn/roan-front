@@ -2,6 +2,7 @@ import { Component, DoCheck } from '@angular/core';
 import { Router } from "@angular/router";
 import { Usuario } from "./models/usuario.model";
 import { UserService } from "./services/user.service";
+import { GLOBAL } from "./services/global";
 
 @Component({
   selector: 'app-root',
@@ -11,9 +12,10 @@ import { UserService } from "./services/user.service";
 export class AppComponent implements DoCheck{
   title = 'roan';
   public identity: Usuario;
-  
+  public url: string;
   constructor(private _router: Router, private userService: UserService){
     this.identity = new Usuario('','','','','','','','');
+    this.url = GLOBAL.url;
   }
 
   logout(){

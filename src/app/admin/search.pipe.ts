@@ -9,11 +9,12 @@ export class SearchPipe implements PipeTransform {
     if(term === undefined){
       return items;
     }
+    
     return items.filter(function(item){
         if(item.descripcion){
             return item.descripcion.toLowerCase().startsWith(term.toLowerCase());
         }else{
-            return item.nombre.toLowerCase().startsWith(term.toLowerCase());
+            return item.name.toLowerCase().startsWith(term.toLowerCase());
         }
         
     })
