@@ -69,6 +69,14 @@ export class UserService {
     });
     return this.http.get(this.url+'api/permisos_por_rol/'+rol, {headers:headers}).map(res => res.json());
   }
+  newUser(user: any){
+    let params = JSON.stringify(user);
+    let headers = new Headers({
+      'Content-Type':'application/json',
+      'Authorization':'Bearer '+this.getToken()
+    });
+    return this.http.put(this.url+'api/usuario', params, {headers:headers}).map(res => res.json());
+  }
   getOrgName(){
     return this.http.get(this.url+'api/org').map(res => res.json());
   }

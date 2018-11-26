@@ -16,6 +16,7 @@ import { CotizacionesComponent } from "./components/cotizaciones/cotizaciones.co
 import { ContactoComponent } from "./components/contacto/contacto.component";
 import { LoginComponent } from "./components/login/login.component";
 import { FiltroPipe } from "./filtro.pipe";
+import { DineroPipe } from './dinero.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FiltroPipe } from "./filtro.pipe";
     CotizacionesComponent,
     ContactoComponent,
     LoginComponent,
-    FiltroPipe
+    FiltroPipe,
+    DineroPipe
   ],
   imports: [
     BrowserModule,

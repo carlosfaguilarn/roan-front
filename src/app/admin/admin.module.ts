@@ -14,15 +14,19 @@ import { PublicidadComponent } from "./components/publicidad/publicidad.componen
 import { ChartArrowComponent } from "./components/charts/chart-arrow/chart-arrow.component";
 import { ChartPieComponent } from "./components/charts/chart-pie/chart-pie.component";
 import { ChartBarComponent } from "./components/charts/chart-bar/chart-bar.component";
+import { GestionComponent } from './components/gestion/gestion.component';
+import { VerPresupuestosComponent } from './components/ver-presupuestos/ver-presupuestos.component';
 // Animación
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminUsuariosComponent } from './components/admin-usuarios/admin-usuarios.component';
 // Guards
 import { AdminGuard } from '../services/admin.guard'; 
+import { HasPermisionGuard } from "../services/hasPermision.guard";
+// Pipes
 import { SearchPipe } from './search.pipe';
 import { MoneyPipe } from './money.pipe';
-import { GestionComponent } from './components/gestion/gestion.component';
-import { VerPresupuestosComponent } from './components/ver-presupuestos/ver-presupuestos.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+
 
 @NgModule({
 	declarations:[
@@ -39,7 +43,8 @@ import { VerPresupuestosComponent } from './components/ver-presupuestos/ver-pres
 		GestionComponent,
 		SearchPipe,
 		MoneyPipe,
-		VerPresupuestosComponent
+		VerPresupuestosComponent,
+		PerfilComponent
 	],
 	imports:[
 		CommonModule,
@@ -57,7 +62,8 @@ import { VerPresupuestosComponent } from './components/ver-presupuestos/ver-pres
 		PublicidadComponent
 	],
 	providers:[ 
-		AdminGuard
+		AdminGuard, 
+		HasPermisionGuard
 	]
 })
 export class AdminModule{}

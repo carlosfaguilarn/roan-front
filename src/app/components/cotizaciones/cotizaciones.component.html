@@ -1,67 +1,54 @@
-<div class="contenedor col-sm-offset-3 col-lg-6 col-lg-offset-3">
-    <h1 class="text-center">Cotiza un servicio</h1>
-    <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
-      <div class="form-group row">
-        <div class="col-sm-12">
-          <input class="form-control" type="text" name="busqueda" id="busqueda" placeholder="Busca un servicio" [(ngModel)]="busqueda" >
-        </div> 
+<div class="row">
+  <h1 class="text-center">Cotiza un servicio</h1>
+    <div class="contenedor col-lg-6">
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <input class="form-control" type="text" name="busqueda" id="busqueda" placeholder="Busca un servicio" [(ngModel)]="busqueda" >
+            </div> 
+            <div class="col-sm-2">
+              <input class="form-control" type="number" name="cantidad" id="cantidad" placeholder="Cantidad" [(ngModel)]="cantidad" >
+            </div> 
+          </div>
+    
+          <table class="table">
+            <tr *ngFor="let servicio of servicios | filtro: busqueda async">
+              <td (click)="seleccionar(servicio)" id="servicio-{{servicio.id}}" class="servicio">
+                <div class="col-lg-6">
+                  <strong>{{servicio.descripcion}}</strong>
+                  <p>{{servicio.tipo}}</p>
+                  <br>
+  
+                  <p class="unidad">
+                    {{servicio.unidad}}:
+                    <span class="costo text-color-yellow">{{servicio.costo | dinero: 2}}</span>
+                  </p>
+                  
+                </div>
+                <div class="col-lg-6 text-right">
+                  <img class="img-middle" src="{{url}}api/images/{{servicio.imagen}}" alt="{{servicio.descripcion}}">
+                </div>
+              </td>
+            </tr>
+          </table>
       </div>
 
-      <table class="table">
-        <tr *ngFor="let servicio of servicios | filtro: busqueda async">
-          <td>
-            <div class="col-lg-6">
-              <strong>{{servicio.descripcion}}</strong>
-              <p>{{servicio.tipo}}</p>
-            </div>
-            <div class="col-lg-6 text-right">
-              <img class="img-middle" src="{{url}}api/images/{{servicio.imagen}}" alt="{{servicio.descripcion}}">
-            </div>
-          </td>
-        </tr>
-      </table>
-    <!--
-      <div class="form-group row">
-          <div class="col-sm-2">
-            <label for="email">Contacto: </label>
+      <!--                         Lista de la cotización                       -->
+<div class="col-lg-6"> 
+    <table class="table caja-cotizacion" id="table-cotizacion">
+      <tr *ngFor="let cotizacion of cotizaciones">
+        <td *ngIf="cotizacion.servicio">
+          <strong>{{cotizacion.servicio}}</strong> <br>
+          <div class="col-lg-6 text-left">
+              <p>{{cotizacion.cantidad}} <strong>x</strong> {{cotizacion.costo | dinero: 2}} {{cotizacion.unidad}}</p>
           </div>
-          <div class="col-sm-5">
-            <input name="email" id="email" class="form-control" type="text" placeholder="Email" required>
+          <div class="col-lg-6 text-right">
+            <p class="text-color-yellow">{{cotizacion.costo * cotizacion.cantidad | dinero: 2}}</p>
           </div>
-          <div class="col-sm-5">
-            <input name="telefono" id="telefono" class="form-control" type="text" placeholder="Teléfono" required>
-          </div>
-        </div>
-    
-      <div class="form-group row">
-        <div class="col-sm-2">
-          <label for="direccion">Dirección: </label>
-        </div>
-        <div class="col-sm-10">
-          <input class="form-control" type="text" required>
-        </div> 
-      </div>
-    
-      <div class="form-group row">
-        <div class="col-sm-2">
-          <label for="asunto">Asunto: </label>
-        </div>
-        <div class="col-sm-10">
-          <input class="form-control" type="text" required>
-        </div> 
-      </div>
-    
-      <div class="form-group row">
-        <div class="col-sm-2">
-          <label for="mensaje">Mensaje: </label>
-        </div>
-        <div class="col-sm-10">
-          <textarea class="form-control" type="text"  required></textarea>
-        </div> 
-      </div>
-    
-      <button type="submit" class="btn btn-primary">Enviar</button>
-      -->
-    </form>  
+        </td>
+      </tr>
+    </table>
+    <div class="row text-center">
+      <button (click)="convertirPDF()" type="button" class="btn btn-primary">GENERAR PDF</button>
+    </div>
   </div>
-  
+</div>  

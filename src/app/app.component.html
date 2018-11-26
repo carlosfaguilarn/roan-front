@@ -39,19 +39,28 @@
 						<ul class="dropdown-menu">
 							<li *ngIf="identity && identity.name"><a href="#">
 									<div>
-										<em class="fas fa-circle online-point"></em> {{identity.name}}
+										<em class="fas fa-circle online-point"></em> 
+										<span class="texto-menu-drop">
+											{{identity.name}}
+										</span>
 									</div>
 								</a>
 							</li> 
-							<li><a routerLink = "/admin/admin-usuarios">
+							<li *ngIf="permisos.indexOf('manage_users') != -1"><a routerLink = "/admin/admin-usuarios">
 									<div>
-										<em class="fas fa-list-ul"></em> Administracion de usuarios
+										<em class="fas fa-list-ul text-color-grey"></em> 
+										<span class="texto-menu-drop">
+											Administracion de usuarios
+										</span> 
 									</div>
 								</a>
 							</li>
 							<li><a class="pointer" (click) = "logout()">
 									<div>
-										<em class="fas fa-sign-out-alt"></em> Cerrar sesión
+										<em class="fas fa-sign-out-alt text-color-grey"></em> 
+										<span class="texto-menu-drop">
+											Cerrar sesión
+										</span>
 									</div>
 								</a>
 							</li>
@@ -70,12 +79,12 @@
 		</ul>
 		
 		<ul class="nav menu" *ngIf="identity">
-			<li><a routerLink="/admin/servicios"    [routerLinkActive]="['active']"><i class="fas fa-briefcase"></i> Servicios</a></li>
-			<li><a routerLink="/admin/usuarios"     [routerLinkActive]="['active']"><i class="far fa-calendar">  </i> Usuarios</a></li>
-			<li><a routerLink="/admin/proyectos"    [routerLinkActive]="['active']"><i class="far fa-chart-bar"></i> Proyectos</a></li>
-			<li><a routerLink="/admin/presupuestos" [routerLinkActive]="['active']"><i class="fas fa-list-ul">   </i> Presupuestos</a></li>
-			<li><a routerLink="/admin/publicidad"   [routerLinkActive]="['active']"><i class="fas fa-ad">        </i> Publicidad</a></li>
-			<li><a routerLink="/admin/clientes"     [routerLinkActive]="['active']"><i class="fas fa-user-tie">  </i> Clientes</a></li>
+			<li *ngIf="permisos.indexOf('view_project') != -1"><a routerLink="/admin/proyectos"    [routerLinkActive]="['active']"><i class="far fa-chart-bar"></i> Proyectos</a></li>
+			<li *ngIf="permisos.indexOf('view_budgets') != -1"><a routerLink="/admin/presupuestos" [routerLinkActive]="['active']"><i class="fas fa-list-ul">   </i> Presupuestos</a></li>
+			<li *ngIf="permisos.indexOf('add_ads') != -1"><a routerLink="/admin/publicidad"   [routerLinkActive]="['active']"><i class="fas fa-ad">        </i> Publicidad</a></li>
+			<li *ngIf="permisos.indexOf('view_services') != -1"><a routerLink="/admin/servicios"    [routerLinkActive]="['active']"><i class="fas fa-briefcase"></i> Servicios</a></li>
+			<li *ngIf="permisos.indexOf('view_users') != -1"><a routerLink="/admin/usuarios"     [routerLinkActive]="['active']"><i class="far fa-calendar">  </i> Usuarios</a></li>
+			<li *ngIf="permisos.indexOf('view_clients') != -1"><a routerLink="/admin/clientes"     [routerLinkActive]="['active']"><i class="fas fa-user-tie">  </i> Clientes</a></li>
 		</ul>
 	</div><!--/.sidebar-->
 	<i class="fas fa-user-tie"></i>
@@ -102,9 +111,10 @@
 				</div>-->
 				<div class="collapse navbar-collapse" id="navbar">
 					<ul class="navbar-nav ml-auto">
-						<li><a [routerLinkActive]="['active']"routerLink="home">Home</a></li>
-						<li><a [routerLinkActive]="['active']"routerLink="cotizaciones">Has una cotización</a></li>
-						<li><a [routerLinkActive]="['active']"routerLink="contacto">Contáctanos</a></li> 
+						<li><a  [routerLinkActive]="['active']"routerLink="home">Home</a></li>
+						<li><a  [routerLinkActive]="['active']"routerLink="cotizaciones">Has una cotización</a></li>
+						<li><a  [routerLinkActive]="['active']"routerLink="contacto">Contáctanos</a></li> 
+						<li><a  [routerLinkActive]="['active']"routerLink="adminlog">Admin</a></li> 
 					</ul>
 				</div>
 			</div>

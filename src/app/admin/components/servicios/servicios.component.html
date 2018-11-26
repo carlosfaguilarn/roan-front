@@ -21,7 +21,7 @@
         <th>Descripción</th>
         <th>Tipo servicio</th>
         <th>Imagen</th>
-        <th>Acción</th>
+        <th>Editar</th>
     </thead>
     <tbody>
       <tr *ngFor="let servicio of servicios | search: busqueda async">
@@ -30,8 +30,8 @@
           <td>{{servicio.tipo}}</td>
           <td><img class="img-modal-min" src="{{url}}api/images/{{servicio.imagen}}" alt=""></td>
           <td>
-            <a href="#servicio-{{servicio.id}}" role="button" class="btn btn-success btn-sm" data-toggle="modal">
-              <i class="fa fa-cog"></i> Editar
+            <a href="#servicio-{{servicio.id}}" role="button" class="btn btn-sm" data-toggle="modal">
+              <i class="fa fa-edit"></i> 
             </a>
           </td>
           <!-- Modal para editar un servicio -->

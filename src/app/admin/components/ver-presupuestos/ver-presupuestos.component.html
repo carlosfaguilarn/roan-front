@@ -11,9 +11,9 @@
           </p>
           </td>
       <td class="text-right col-lg-3">
-          <a href="{{url}}api/pdf/{{presupuesto.url}}" target="_blank" class="btn btn-primary">Ver</a>
-          <a (click)="status(presupuesto.id, 'APROBADO')" class="btn btn-success little-margin-left">Aprobar</a>
-          <a (click)="status(presupuesto.id, 'RECHAZADO')" class="btn btn-danger little-margin-left">Rechazar</a>
+          <a href="{{url}}api/pdf/{{presupuesto.url}}" target="_blank" class="text-color-primary pointer"><i class="far fa-eye"></i></a>
+          <a (click)="status(presupuesto.id, 'APROBADO')" class="text-color-success little-margin-left pointer"><i class="fas fa-check"></i></a>
+          <a (click)="status(presupuesto.id, 'RECHAZADO')" class="text-color-danger little-margin-left pointer"><i class="fas fa-times"></i></a>
       </td>
     </tr>
   </tbody>

@@ -9,6 +9,9 @@ export class SearchPipe implements PipeTransform {
     if(term === undefined){
       return items;
     }
+    if(items === undefined){
+      return items;
+    }
     
     return items.filter(function(item){
         if(item.descripcion){

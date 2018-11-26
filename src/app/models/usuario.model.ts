@@ -12,7 +12,7 @@ export class Usuario {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.email = email;
+        this.address = address;
         this.role = rol;
         this.id_rol = id_rol;
         this.img = img;

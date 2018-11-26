@@ -71,15 +71,19 @@ export class ProjectService{
 
 	newBudget(request){
 		let params = JSON.stringify(request);
-    let headers = new Headers({'Content-Type':'application/json'});
+    	let headers = new Headers({
+			'Content-Type':'application/json',
+			'Authorization':'Bearer '+this.token
+		});
 
     return this.http.put(this.url+'api/presupuesto', params, {headers: headers}).map(res => res.json());
 	}
 
 	getBudgets(){
 		let headers = new Headers({
-				'Content-Type':'application/json'
-		}); 
+			'Content-Type':'application/json',
+			'Authorization':'Bearer '+this.token
+		});
 		return this.http.get(this.url+'api/presupuestos', {headers: headers}).map(res => res.json());
 	}
 

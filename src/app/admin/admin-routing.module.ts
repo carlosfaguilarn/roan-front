@@ -12,10 +12,11 @@ import { ClientesComponent } from "./components/clientes/clientes.component";
 import { PublicidadComponent } from "./components/publicidad/publicidad.component";
 import { AdminUsuariosComponent } from "./components/admin-usuarios/admin-usuarios.component";
 import { VerPresupuestosComponent } from "./components/ver-presupuestos/ver-presupuestos.component";
-
+import { PerfilComponent } from "./components/perfil/perfil.component";
 
 //Guard
 import { AdminGuard } from '../services/admin.guard';
+import { HasPermisionGuard } from '../services/hasPermision.guard';
 
 
 // Array de rutas
@@ -23,18 +24,19 @@ const adminRoutes: Routes = [
 	{
 		path:'admin',
 		//component: MainComponent,
-		canActivate: [AdminGuard],
 		children: [
-			{path: 'servicios', component: ServiciosComponent},
-			{path: 'usuarios', component: UsuariosComponent},
-			{path: 'presupuestos', component: PresupuestosComponent},
-			{path: 'proyectos', component: ProyectosComponent},
-			{path: 'gestionar/:id', component: GestionComponent},
-            {path: 'clientes', component: ClientesComponent},
-			{path: 'publicidad', component: PublicidadComponent},
-			{path: 'admin-usuarios', component: AdminUsuariosComponent},
-			{path: 'ver-presupuestos', component: VerPresupuestosComponent},
-            {path: '**', component: ServiciosComponent}
+			{path: '', component: ProyectosComponent},
+			{path:'servicios',component: ServiciosComponent,canActivate:[HasPermisionGuard],data:{expectedPermission:'view_services'}},
+			{path:'usuarios', component: UsuariosComponent,canActivate:[HasPermisionGuard],data:{expectedPermission:'view_users'}},
+			{path:'presupuestos', component: PresupuestosComponent,canActivate:[HasPermisionGuard],data:{expectedPermission:'view_budgets'}},
+			{path:'proyectos', component: ProyectosComponent,canActivate:[HasPermisionGuard],data:{expectedPermission:'view_projects'}},
+			{path:'gestionar/:id', component: GestionComponent,canActivate:[HasPermisionGuard],data:{expectedPermission:'add_projects'}},
+            {path:'clientes', component: ClientesComponent,canActivate:[HasPermisionGuard],data:{expectedPermission:'view_clients'}},
+			{path:'publicidad', component: PublicidadComponent,canActivate:[HasPermisionGuard],data:{expectedPermission:'add_ads'}},
+			{path:'admin-usuarios', component: AdminUsuariosComponent,canActivate:[HasPermisionGuard],data:{expectedPermission:'manage_users'}},
+			{path:'ver-presupuestos', component: VerPresupuestosComponent,canActivate:[HasPermisionGuard],data:{expectedPermission:'view_budgets'}},
+			{path:'perfil', component: PerfilComponent},			
+			{path:'**', component: ServiciosComponent}
 		]
 	}
 ];

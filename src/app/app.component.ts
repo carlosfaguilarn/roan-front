@@ -13,8 +13,10 @@ export class AppComponent implements DoCheck{
   title = 'roan';
   public identity: Usuario;
   public url: string;
+  public permisos: any;
   constructor(private _router: Router, private userService: UserService){
     this.identity = new Usuario('','','','','','','','');
+    this.permisos = localStorage.getItem('permisos');
     this.url = GLOBAL.url;
   }
 

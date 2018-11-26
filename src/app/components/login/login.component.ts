@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Usuario } from "../../models/usuario.model";
-import { Router } from "@angular/router";
-
+import { Router } from "@angular/router"; 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,6 +12,7 @@ export class LoginComponent implements OnInit {
   public identity: any;
   public token: any;
   public status: any;
+  public permisos: any[];
   constructor(
     private _userService: UserService,
     private _router: Router
@@ -22,11 +22,28 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  getPermissions(rol: string){
+      this._userService.getPermisosPorRol(rol).subscribe(
+          response=>{
+              if(!response.permisos){
+                  alert("Hubo un error al ver los permisos");
+              }else{
+                  this.permisos = response.permisos;
+                  localStorage.setItem('permisos', this.permisos.toString());
+              }
+          },error=>{
+              var errorMessage = <any> error;
+              if(errorMessage != null) alert(errorMessage);
+          }
+      );
+  }
+
   onSubmit(){
     // Loguear al usuario y conseguir sus datos
     this._userService.signup(this.user).subscribe(
         response => {
-            this.identity = response.user[0];
+            this.identity = response.user;
             console.log(this.identity);
             if(!this.identity){
                 alert('El usuario no se ha logueado correctamente');
@@ -42,7 +59,21 @@ export class LoginComponent implements OnInit {
                     // Guardar el token en local storage
                     localStorage.setItem('token', this.token);
                     this.status = 'success';
-                    this._router.navigate(['/admin/servicios']);
+                    
+                    this._userService.getPermisosPorRol(this.identity.id_rol).subscribe(
+                        response=>{
+                            if(!response.permisos){
+                                alert("Hubo un error al ver los permisos");
+                            }else{
+                                this.permisos = response.permisos;
+                                localStorage.setItem('permisos', this.permisos.toString());
+                                this._router.navigate(['/admin/perfil']);
+                            }
+                        },error=>{
+                            var errorMessage = <any> error;
+                            if(errorMessage != null) alert(errorMessage);
+                        }
+                    );
                 }
             }
         },
